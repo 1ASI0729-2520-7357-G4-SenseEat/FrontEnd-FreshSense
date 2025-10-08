@@ -1,23 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+
+type Achievement = { icon: string; title: string; desc: string; progress?: number };
 
 @Component({
     selector: 'fs-achievements-view',
     standalone: true,
-    template: `
-        <section class="stub">
-            <h2>Achievements</h2>
-            <p>Coming soon…</p>
-            <ul class="bullets">
-                <li>New achievement card</li>
-                <li>Upcoming achievements list</li>
-                <li>Progress by streak / goals</li>
-            </ul>
-        </section>
-    `,
-    styles: [`
-        :host .stub{background:#fff;border:1px solid #e6ece8;border-radius:16px;padding:16px;}
-        h2{margin:0 0 8px;}
-        .bullets{margin-top:8px;color:#6b7f7b}
-    `]
+    imports: [NgFor, NgIf],
+    templateUrl: './achievements.view.html',
+    styleUrl: './achievements.view.css'
 })
-export class AchievementsView {}
+export class AchievementsView {
+    private _upcoming = signal<Achievement[]>([
+        { icon: '🥗', title: 'Green Saver', desc: 'Keep leafy greens under ideal humidity for 7 days.', progress: 60 },
+        { icon: '🧊', title: 'Cold Master', desc: 'Keep average temp below 6°C for 5 consecutive days.', progress: 35 },
+        { icon: '🍎', title: 'Fruit Care', desc: 'Avoid bruising score over 90% for a full week.' },
+        { icon: '🧼', title: 'Cleanliness Pro', desc: 'Keep cleanliness level above 85% for 10 days.', progress: 80 },
+    ]);
+    readonly upcoming = () => this._upcoming();
+}

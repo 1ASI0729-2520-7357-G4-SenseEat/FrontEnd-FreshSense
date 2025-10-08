@@ -1,0 +1,30 @@
+<section class="grid">
+    <!-- Highlight -->
+    <article class="card highlight">
+        <div class="badge">🎉</div>
+        <div>
+            <h3 class="title">Congratulations! New Achievement!</h3>
+            <p class="muted">
+                <strong>FOOD GUARDIAN:</strong> Maintain all the items in good condition for <b>14 days</b>.
+            </p>
+        </div>
+        <div class="trophy" aria-hidden="true">🏆</div>
+    </article>
+
+    <!-- Upcoming list -->
+    <article class="card list">
+        <h4 class="h2">Upcoming Achievements</h4>
+        <ul class="items">
+            <li class="item" *ngFor="let a of upcoming()">
+                <div class="icon">{{ a.icon }}</div>
+                <div class="body">
+                    <strong>{{ a.title }}</strong>
+                    <p class="muted">{{ a.desc }}</p>
+                    <div class="progress" *ngIf="a.progress !== undefined">
+                        <span [style.width.%]="a.progress"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </article>
+</section>
