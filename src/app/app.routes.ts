@@ -25,6 +25,8 @@ export const routes: Routes = [
             { path: 'recipes', loadComponent: () => import('./recipes/presentation/recipes.view').then(m => m.RecipesView).catch(() => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView)) },
             { path: 'reports', loadComponent: () => import('./reports/presentation/reports.view').then(m => m.ReportsView).catch(() => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView)) },
             { path: 'achievements', loadComponent: () => import('./achievements/presentation/achievements.view').then(m => m.AchievementsView).catch(() => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView)) },
+            { path: 'settings', loadComponent: () => import('./accounts/presentation/settings.view').then(m => m.SettingsView).catch(() => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView)) },
+
         ]
     },
     { path: '**', loadComponent: () => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView) }
