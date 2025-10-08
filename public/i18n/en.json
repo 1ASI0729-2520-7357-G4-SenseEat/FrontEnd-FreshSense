@@ -1,10 +1,36 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+  "app": {
+    "brand": "FreshSense",
+    "login": "Login",
+    "logout": "Logout",
+    "language": "Language",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "inventory": "Food Inventory",
+    "monitoring": "Food Monitoring",
+    "alerts": "Alerts",
+    "recipes": "Recipes",
+    "reports": "Reports",
+    "achievements": "Achievements",
+    "settings": "Settings"
+  },
+  "alerts": {
+    "title": "Alerts",
+    "manage": "Manage Alerts"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "security": "Security",
+    "integrations": "Integrations",
+    "unsaved": "Unsaved changes",
+    "applyTheme": "Apply theme",
+    "saveAll": "Save All"
   }
 }
