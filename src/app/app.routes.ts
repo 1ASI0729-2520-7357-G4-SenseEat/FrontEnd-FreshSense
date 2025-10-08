@@ -8,22 +8,16 @@ export const routes: Routes = [
         pathMatch: 'full',
     },
     {
-        path: 'register',
-        loadComponent: () =>
-            import('./accounts/presentation/views/register/register.component')
-                .then(m => m.RegisterComponent)
+        path: 'register', loadComponent: () => import('./accounts/presentation/views/register/register.component').then(m => m.RegisterComponent)
     },
-    {
-        path: 'login',
-        loadComponent: () =>
-            import('./accounts/presentation/views/login/login.component')
-                .then(m => m.LoginComponent)
-    },
+    { path: 'login', loadComponent: () => import('./accounts/presentation/views/login/login.component').then(m => m.LoginComponent)},
+    { path: 'plan', loadComponent: () => import('./billing/presentation/views/plan/plan.component').then(m => m.PlanComponent)},
+    { path: 'payment', loadComponent: () => import('./billing/presentation/views/payment/payment.component').then(m => m.PaymentComponent)},
+
     {
         path: '',
         component: LayoutComponent,
         children: [
-            { path: 'register', loadComponent: () => import('./accounts/presentation/views/register/register.component').then(m => m.RegisterComponent) },
             { path: 'dashboard', loadComponent: () => import('./shared/presentation/view/home/home.view').then(m => m.HomeView) },
             { path: 'inventory', loadComponent: () => import('./inventory/presentation/inventory.view').then(m => m.InventoryView).catch(() => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView)) },
             { path: 'monitoring', loadComponent: () => import('./monitoring/presentation/monitoring.view').then(m => m.MonitoringView).catch(() => import('./shared/presentation/view/page-not-found/page-not-found.view').then(m => m.PageNotFoundView)) },

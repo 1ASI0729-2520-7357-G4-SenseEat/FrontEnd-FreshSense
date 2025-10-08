@@ -33,7 +33,7 @@ export class RegisterComponent {
 
         this.accountStore.register(this.user);
         alert('Usuario registrado correctamente ✅');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/plan']);
     }
 }
 
