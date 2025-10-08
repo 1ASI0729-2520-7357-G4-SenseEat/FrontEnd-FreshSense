@@ -1,0 +1,31 @@
+<div class="shell" [class.collapsed]="collapsed()">
+    <aside class="sidebar">
+        <div class="brand">
+            <img class="brand__logo" src="/assets/logo.svg" alt="FreshSense logo" />
+            <span class="brand__name">FreshSense</span>
+        </div>
+
+        <nav class="menu">
+            <a *ngFor="let i of nav()"
+               [routerLink]="i.path"
+               routerLinkActive="active"
+               class="menu__item">
+                <span class="dot" aria-hidden="true"></span>
+                <span class="label">{{ i.label }}</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="content">
+        <header class="topbar">
+            <button class="icon" (click)="toggle()" aria-label="Toggle menu">☰</button>
+            <h1 class="topbar__title">FreshSense</h1>
+            <div class="spacer"></div>
+            <button class="btn small">Login</button>
+        </header>
+
+        <main class="page container">
+            <router-outlet />
+        </main>
+    </div>
+</div>
