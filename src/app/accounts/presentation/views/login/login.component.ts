@@ -18,12 +18,14 @@ export class LoginComponent {
     };
 
     constructor(private accountStore: AccountStore, private router: Router) {}
-
+    goToRegister() {
+        this.router.navigate(['/register']);
+    }
     onSubmit() {
         const success = this.accountStore.login(this.loginData.email, this.loginData.password);
         if (success) {
             alert('Inicio de sesión exitoso ✅');
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
         } else {
             alert('Correo o contraseña incorrectos ❌');
         }

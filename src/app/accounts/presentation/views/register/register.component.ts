@@ -22,7 +22,9 @@ export class RegisterComponent {
     confirmPassword: string = '';
 
     constructor(private accountStore: AccountStore, private router: Router) {}
-
+    goToLogin() {
+        this.router.navigate(['/login']);
+    }
     onSubmit() {
         if (this.user.password !== this.confirmPassword) {
             alert('Las contraseñas no coinciden ❌');
