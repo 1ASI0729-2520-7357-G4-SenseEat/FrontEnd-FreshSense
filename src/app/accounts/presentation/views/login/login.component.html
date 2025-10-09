@@ -1,0 +1,41 @@
+<div class="login-container">
+    <!-- Banner dentro del cuadro, pegado arriba como franja decorativa -->
+    <div class="banner-section">
+        <img src="/banneralimentos.jpg" alt="Banner de alimentos" />
+    </div>
+
+    <!-- Formulario debajo del banner (misma estructura que register) -->
+    <div class="form-section">
+        <div class="form-box">
+            <div class="logo">
+                <img src="/favicon.ico" alt="FreshSense logo" />
+                <h2>FreshSense</h2>
+                <p class="subtitle">Inicia sesión</p>
+            </div>
+
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+                <div class="input-group">
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" type="email" name="email" placeholder="xdxd1234@gmail.com"
+                           [(ngModel)]="loginData.email" required />
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <input id="password" type="password" name="password" placeholder="**********"
+                           [(ngModel)]="loginData.password" required />
+                </div>
+
+                <p class="link">
+                    ¿No tienes una cuenta?
+                    <a (click)="goToRegister()">Regístrate</a>
+                </p>
+
+                <!-- uso la misma clase de botón que en register para mantener estilo idéntico -->
+                <button type="submit" class="btn-login">Iniciar sesión</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,32 @@
+<div class="plan-container">
+    <div class="banner-section">
+        <img src="/banneralimentos.jpg" alt="Banner de planes" />
+    </div>
+
+    <div class="plans-section">
+        <h2>Elige tu Plan</h2>
+
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3>Plan Básico</h3>
+                <p>Ideal para usuarios individuales que desean reducir desperdicios en casa.</p>
+                <h4>S/ 19.90 / mes</h4>
+                <button (click)="selectPlan('basic')">Seleccionar</button>
+            </div>
+
+            <div class="plan-card featured">
+                <h3>Plan Premium</h3>
+                <p>Incluye herramientas avanzadas de análisis y recetas inteligentes.</p>
+                <h4>S/ 39.90 / mes</h4>
+                <button (click)="selectPlan('premium')">Seleccionar</button>
+            </div>
+
+            <div class="plan-card">
+                <h3>Plan Familiar</h3>
+                <p>Comparte tu cuenta con hasta 4 miembros de tu hogar.</p>
+                <h4>S/ 59.90 / mes</h4>
+                <button (click)="selectPlan('family')">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+</div>
