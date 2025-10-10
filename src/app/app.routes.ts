@@ -44,9 +44,15 @@ export const routes: Routes = [
             },
             {
                 path: 'inventory',
+                loadChildren: () =>
+                    import('./inventory/presentation/view/inventory.routes')
+                        .then(m => m.INVENTORY_ROUTES),
+            },
+            {
+                path: 'inventory',
                 loadComponent: () =>
-                    import('./inventory/presentation/inventory.view')
-                        .then(m => m.InventoryView),
+                    import('./inventory/presentation/view/list/inventory.view')
+                        .then(m => m.FoodInventoryView),
             },
             {
                 path: 'monitoring',
@@ -83,6 +89,17 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./accounts/presentation/views/settings/settings.view')
                         .then(m => m.SettingsView),
+            },
+            {
+                path: '',
+                redirectTo: 'inventory',
+                pathMatch: 'full'
+            },
+            {
+                path: 'inventory',
+                loadChildren: () =>
+                    import('./inventory/presentation/view/inventory.routes')
+                        .then(m => m.INVENTORY_ROUTES),
             },
         ],
     },

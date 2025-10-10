@@ -319,5 +319,23 @@
       "ingredients": ["Mixed Greens", "Tomato", "Cucumber", "Carrot", "Vinaigrette"],
       "steps": ["Chop vegetables", "Toss with greens and dressing"]
     }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Banana",
+      "description": "Fresh ripe bananas",
+      "category": "Fruit",
+      "quantity": 25,
+      "image": "https://example.com/banana.jpg"
+    },
+    {
+      "id": "c098",
+      "name": "orange",
+      "description": "es una naranja",
+      "category": "Fruit",
+      "quantity": 10,
+      "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fes%2Ffotos%2Fnaranja&psig=AOvVaw3xpTNVyl9BzL6vqnbAXp-1&ust=1760157672602000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLicirnomJADFQAAAAAdAAAAABAE"
+    }
   ]
 }

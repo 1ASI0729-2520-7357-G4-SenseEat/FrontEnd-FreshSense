@@ -1,0 +1,106 @@
+<section class="wrap inventory-page" aria-labelledby="inventory-title">
+    <header class="page-head">
+        <h2 id="inventory-title" class="section-title">Food Inventory</h2>
+
+        <!-- ➕ Botón agregar producto -->
+        <button class="btn btn-add" (click)="onAddProduct()">+ Add Product</button>
+    </header>
+
+    <!-- Buscador -->
+    <form class="search" (submit)="$event.preventDefault()">
+        <input
+                type="text"
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="filterProducts()"
+                placeholder="Search"
+                name="search"
+                aria-label="Search products"
+        />
+
+    </form>
+
+
+    <!-- Filtros -->
+    <div class="filters">
+        <div class="filter-group">
+            <h4>State</h4>
+            <div class="chips">
+                <button
+                        type="button"
+                        *ngFor="let state of states"
+                        class="chip"
+                        [class.active]="selectedState === state"
+                        (click)="filterState(state)"
+                >
+                    {{ state }}
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <h4>Category</h4>
+            <div class="chips">
+                <button
+                        type="button"
+                        *ngFor="let cat of categories"
+                        class="chip"
+                        [class.active]="selectedCategory === cat"
+                        (click)="filterCategory(cat)"
+                >
+                    {{ cat }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="product-grid">
+        <article
+                class="product-card"
+                *ngFor="let p of filteredProducts; trackBy: trackByProductId"
+        >
+            <div class="card-header">
+                <img
+                        [src]="imageFor(p)"
+                        [alt]="p.name"
+                        loading="lazy"
+                        (error)="onImgError($event)"
+                        class="product-img"
+                />
+
+                <div class="product-main">
+                    <h4 class="product-name">{{ p.name }}</h4>
+                    <p class="product-cat">{{ p.category || 'Uncategorized' }}</p>
+                </div>
+
+                <button
+                        class="arrow-btn"
+                        type="button"
+                        [attr.aria-label]="'Open product details for ' + p.name"
+                        (click)="openProduct(p)"
+                >
+                    ›
+                </button>
+            </div>
+
+            <!-- Panel de detalle -->
+            <div *ngIf="selectedProduct?.id === p.id" class="product-details">
+                <p>
+                    <strong>Description:</strong>
+                    {{ p.description || 'No description available.' }}
+                </p>
+                <p>
+                    <strong>Condition:</strong> {{ p.state || 'Not specified' }}
+                </p>
+                <p><strong>Quantity:</strong> {{ p.quantity ?? 'N/A' }}</p>
+
+                <div class="detail-actions">
+                    <button class="btn-outline" (click)="selectedProduct = null">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
