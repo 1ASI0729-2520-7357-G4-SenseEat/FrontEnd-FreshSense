@@ -1,13 +1,14 @@
 import { Component, computed, signal } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 type Day = { label: string; wasteKg: number };
 
 @Component({
     selector: 'fs-reports-view',
     standalone: true,
-    imports: [NgFor, FormsModule],
+    imports: [NgFor, FormsModule, TranslateModule], // ⬅️ agregado
     templateUrl: './reports.view.html',
     styleUrl: './reports.view.css'
 })

@@ -1,4 +1,20 @@
 {
+  "home": {
+    "heroTitle": "Hi {{name}}, welcome to FreshSense 👋",
+    "freshness": "General Freshness Level",
+    "foodAlt": "Food",
+    "weeklyStats": "Weekly Statistics",
+    "stock": "STOCK",
+    "level": "LEVEL",
+    "gain": "GAIN",
+    "loss": "LOSS",
+    "challengesTitle": "Meet these challenges",
+    "tags": {
+      "salad": "Salad",
+      "bowl": "Bowl",
+      "yogurt": "Yogurt"
+    }
+  },
   "app": {
     "brand": "FreshSense",
     "login": "Login",
@@ -17,20 +33,240 @@
     "achievements": "Achievements",
     "settings": "Settings"
   },
-  "alerts": {
-    "title": "Alerts",
-    "manage": "Manage Alerts"
+  "auth": {
+    "brandAlt": "FreshSense logo",
+    "login": {
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "placeholderEmail": "you@example.com",
+      "placeholderPassword": "**********",
+      "cta": "Log in",
+      "noAccount": "Don’t have an account?",
+      "goRegister": "Sign up"
+    },
+    "register": {
+      "title": "Create an account",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirm": "Confirm password",
+      "placeholderName": "Name",
+      "placeholderEmail": "you@example.com",
+      "placeholderPassword": "**********",
+      "cta": "Sign up",
+      "haveAccount": "Already have an account?",
+      "goLogin": "Sign in"
+    }
   },
   "settings": {
     "title": "Settings",
-    "profile": "Profile",
-    "preferences": "Preferences",
-    "theme": "Theme",
-    "notifications": "Notifications",
-    "security": "Security",
-    "integrations": "Integrations",
     "unsaved": "Unsaved changes",
-    "applyTheme": "Apply theme",
-    "saveAll": "Save All"
+    "saveAll": "Save All",
+    "tabs": {
+      "profile": "Profile",
+      "preferences": "Preferences",
+      "theme": "Theme",
+      "notifications": "Notifications",
+      "security": "Security",
+      "integrations": "Integrations"
+    },
+    "profile": {
+      "title": "Profile",
+      "uploadAvatar": "Upload avatar",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "organization": "Organization",
+      "save": "Save profile"
+    },
+    "preferences": {
+      "title": "Preferences",
+      "language": "Language",
+      "timezone": "Time zone",
+      "units": "Units",
+      "unitsMetric": "Metric (°C, kg)",
+      "unitsImperial": "Imperial (°F, lb)",
+      "dateFormat": "Date format",
+      "weekStartsOn": "Week starts on",
+      "monday": "Monday",
+      "sunday": "Sunday",
+      "save": "Save preferences"
+    },
+    "theme": {
+      "title": "Theme",
+      "modeLight": "Light",
+      "modeDark": "Dark",
+      "primaryColor": "Primary color",
+      "rounded": "Rounded corners",
+      "density": "Density",
+      "densityComfortable": "Comfortable",
+      "densityCompact": "Compact",
+      "apply": "Apply theme"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email",
+      "push": "Push",
+      "weeklyReport": "Weekly report",
+      "criticalOnly": "Only critical",
+      "ethyleneThreshold": "Ethylene threshold (ppm)",
+      "temperatureThreshold": "Temperature threshold (°C)",
+      "reset": "Reset",
+      "save": "Save notifications"
+    },
+    "security": {
+      "title": "Security",
+      "password": "Password",
+      "passwordHint": "Use a strong, unique password.",
+      "changePassword": "Change password",
+      "twoFactor": "Two-factor authentication",
+      "enable2fa": "Enable 2FA",
+      "twoFactorHint": "Add an extra layer of security.",
+      "activeSessions": "Active Sessions",
+      "revoke": "Revoke",
+      "current": "Current"
+    },
+    "integrations": {
+      "title": "Integrations",
+      "connect": "Connect",
+      "disconnect": "Disconnect"
+    }
+  },
+  "achievements": {
+    "title": "Achievements",
+    "congratsTitle": "Congratulations! New Achievement!",
+    "completed": "Completed",
+    "locked": "Locked"
+  },
+  "alerts": {
+    "title": "Alerts",
+    "searchPlaceholder": "Search alerts…",
+    "filters": {
+      "severityAll": "All Severity",
+      "severityCritical": "Critical",
+      "severityWarning": "Warning",
+      "severityInfo": "Info"
+    },
+    "columns": {
+      "source": "Source",
+      "severity": "Severity",
+      "status": "Status",
+      "createdAt": "Last seen"
+    },
+    "actions": {
+      "mute": "Mute",
+      "resolve": "Resolve",
+      "details": "Details",
+      "markResolved": "Mark as Resolved"
+    },
+    "empty": {
+      "title": "No alerts found",
+      "hint": "Try changing the tab, severity filter or your search."
+    }
+  },
+  "billing": {
+    "payment": {
+      "bannerAlt": "Payment banner",
+      "title": "Payment Method",
+      "cardName": "Name on card",
+      "cardNumber": "Card number",
+      "expiry": "Expires",
+      "cvv": "CVV",
+      "pay": "Pay"
+    }
+  },
+  "plans": {
+    "bannerAlt": "Plans banner",
+    "title": "Choose your Plan",
+    "select": "Select",
+    "basic": {
+      "title": "Basic Plan",
+      "desc": "Ideal for individuals who want to reduce waste at home.",
+      "price": "S/ 19.90 / month"
+    },
+    "premium": {
+      "title": "Premium Plan",
+      "desc": "Includes advanced analytics tools and smart recipes.",
+      "price": "S/ 39.90 / month"
+    },
+    "family": {
+      "title": "Family Plan",
+      "desc": "Share your account with up to 4 household members.",
+      "price": "S/ 59.90 / month"
+    }
+  },
+  "inventory": {
+    "title": "Food Inventory",
+    "add": {
+      "title": "Add New Product",
+      "name": "Product Name *",
+      "description": "Description",
+      "category": "Category *",
+      "selectCategory": "Select category",
+      "quantity": "Quantity",
+      "image": "Image URL",
+      "cta": "Add Product"
+    },
+    "state": "State",
+    "category": "Category",
+    "uncategorized": "Uncategorized",
+    "openDetailsAria": "Open product details for",
+    "details": {
+      "description": "Description",
+      "noDescription": "No description available.",
+      "state": "Condition",
+      "notSpecified": "Not specified",
+      "quantity": "Quantity"
+    },
+    "searchAria": "Search products"
+  },
+  "reports": {
+    "title": "Reports",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply",
+    "weeklyWaste": "Weekly Food Waste",
+    "trends": "Trends",
+    "vsLastWeek": "vs last week",
+    "mtd": "month to date",
+    "kpi": {
+      "gain": "Gain",
+      "loss": "Loss",
+      "improvement": "Percentage Improvement"
+    }
+  },
+  "recipes": {
+    "title": "Recipes",
+    "searchPlaceholder": "Search recipe...",
+    "level": "Level",
+    "foodType": "Food Type",
+    "seeRecipe": "See recipe",
+    "imageAlt": "Recipe image",
+    "ingredients": "Ingredients",
+    "steps": "Steps"
+  },
+  "monitoring": {
+    "title": "Food Monitoring",
+    "status": { "healthy": "Sensors status: Healthy" },
+    "lastSync": "Last sync {{minutes}} min ago",
+    "category": "Category",
+    "kpi": {
+      "openIssues": "Open issues",
+      "avgHumidity": "Avg Humidity",
+      "avgTemp": "Avg Temp"
+    },
+    "history": {
+      "title": "History",
+      "last": "Last monitoring {{date}}"
+    },
+    "exportCsv": "Export CSV",
+    "viewLast": "View last monitoring"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "search": "Search"
   }
 }

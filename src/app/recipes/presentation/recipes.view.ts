@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core'; // ⬅️ añadido
 
 type Recipe = {
     id: number;
@@ -18,7 +19,7 @@ type Recipe = {
 @Component({
     selector: 'fs-recipes-view',
     standalone: true,
-    imports: [NgFor, NgIf, FormsModule],
+    imports: [NgFor, NgIf, FormsModule, TranslateModule],
     templateUrl: './recipes.view.html',
     styleUrls: ['./recipes.view.css']
 })

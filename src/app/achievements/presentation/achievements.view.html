@@ -1,9 +1,8 @@
 <section class="grid">
-    <!-- HIGHLIGHT -->
     <article class="card highlight" *ngIf="latestCompleted() as last">
         <div class="badge">🎉</div>
         <div>
-            <h3 class="title">Congratulations! New Achievement!</h3>
+            <h3 class="title">{{ 'achievements.congratsTitle' | translate }}</h3>
             <p class="muted">
                 <strong>{{ last.title }}</strong>: {{ last.desc }}
             </p>
@@ -12,23 +11,21 @@
         <div class="trophy" aria-hidden="true">🏆</div>
     </article>
 
-    <!-- PANEL DERECHA -->
     <article class="card panel">
         <header class="panel__head">
-            <h4 class="h2">Achievements</h4>
+            <h4 class="h2">{{ 'achievements.title' | translate }}</h4>
             <div class="tabs">
-                <button
-                        *ngFor="let t of tabs"
+                <button *ngFor="let t of tabs"
                         class="tab"
                         [class.active]="activeTab() === t.key"
                         (click)="setTab(t.key)">
-                    {{ t.label }}
+                    {{ t.label | translate }}
                     <span class="pill"
                           [ngClass]="{
-              'is-progress': t.key==='in-progress',
-              'is-pending':  t.key==='pending',
-              'is-completed':t.key==='completed'
-            }">
+                  'is-progress': t.key==='in-progress',
+                  'is-pending':  t.key==='pending',
+                  'is-completed':t.key==='completed'
+                }">
             {{
                             t.key==='in-progress' ? count.inProgress() :
                                 t.key==='pending'     ? count.pending() :
@@ -48,20 +45,18 @@
                     <div class="title-row">
                         <strong>{{ a.title }}</strong>
                         <span class="badge-pts" [class.done]="a.status==='completed'">
-              {{ a.status==='completed' ? 'Completed' : pts(a.pts) }}
+              {{ a.status==='completed' ? ('achievements.completed' | translate) : pts(a.pts) }}
             </span>
                     </div>
                     <p class="muted">{{ a.desc }}</p>
 
-                    <!-- Progress for in-progress -->
                     <div class="progress" *ngIf="a.status==='in-progress'">
                         <span [style.width.%]="a.progress ?? 0"></span>
                         <em>{{ a.progress }}%</em>
                     </div>
 
-                    <!-- Locked ribbon for pending -->
                     <div class="locked" *ngIf="a.status==='pending'">
-                        <span>Locked</span>
+                        <span>{{ 'achievements.locked' | translate }}</span>
                     </div>
                 </div>
             </li>

@@ -1,106 +1,58 @@
 <section class="wrap inventory-page" aria-labelledby="inventory-title">
     <header class="page-head">
-        <h2 id="inventory-title" class="section-title">Food Inventory</h2>
-
-        <!-- ➕ Botón agregar producto -->
-        <button class="btn btn-add" (click)="onAddProduct()">+ Add Product</button>
+        <h2 id="inventory-title" class="section-title">{{ 'inventory.title' | translate }}</h2>
+        <button class="btn btn-add" (click)="onAddProduct()">+ {{ 'inventory.add.cta' | translate }}</button>
     </header>
 
-    <!-- Buscador -->
     <form class="search" (submit)="$event.preventDefault()">
-        <input
-                type="text"
-                [(ngModel)]="searchTerm"
-                (ngModelChange)="filterProducts()"
-                placeholder="Search"
-                name="search"
-                aria-label="Search products"
-        />
-
+        <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterProducts()"
+               [placeholder]="'common.search' | translate" name="search"
+               [attr.aria-label]="'inventory.searchAria' | translate" />
     </form>
 
-
-    <!-- Filtros -->
     <div class="filters">
         <div class="filter-group">
-            <h4>State</h4>
+            <h4>{{ 'inventory.state' | translate }}</h4>
             <div class="chips">
-                <button
-                        type="button"
-                        *ngFor="let state of states"
-                        class="chip"
-                        [class.active]="selectedState === state"
-                        (click)="filterState(state)"
-                >
+                <button type="button" *ngFor="let state of states" class="chip"
+                        [class.active]="selectedState === state" (click)="filterState(state)">
                     {{ state }}
                 </button>
             </div>
         </div>
 
         <div class="filter-group">
-            <h4>Category</h4>
+            <h4>{{ 'inventory.category' | translate }}</h4>
             <div class="chips">
-                <button
-                        type="button"
-                        *ngFor="let cat of categories"
-                        class="chip"
-                        [class.active]="selectedCategory === cat"
-                        (click)="filterCategory(cat)"
-                >
+                <button type="button" *ngFor="let cat of categories" class="chip"
+                        [class.active]="selectedCategory === cat" (click)="filterCategory(cat)">
                     {{ cat }}
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Lista de productos -->
     <div class="product-grid">
-        <article
-                class="product-card"
-                *ngFor="let p of filteredProducts; trackBy: trackByProductId"
-        >
+        <article class="product-card" *ngFor="let p of filteredProducts; trackBy: trackByProductId">
             <div class="card-header">
-                <img
-                        [src]="imageFor(p)"
-                        [alt]="p.name"
-                        loading="lazy"
-                        (error)="onImgError($event)"
-                        class="product-img"
-                />
-
+                <img [src]="imageFor(p)" [alt]="p.name" loading="lazy" (error)="onImgError($event)" class="product-img" />
                 <div class="product-main">
                     <h4 class="product-name">{{ p.name }}</h4>
-                    <p class="product-cat">{{ p.category || 'Uncategorized' }}</p>
+                    <p class="product-cat">{{ p.category || ('inventory.uncategorized' | translate) }}</p>
                 </div>
-
-                <button
-                        class="arrow-btn"
-                        type="button"
-                        [attr.aria-label]="'Open product details for ' + p.name"
-                        (click)="openProduct(p)"
-                >
-                    ›
-                </button>
+                <button class="arrow-btn" type="button"
+                        [attr.aria-label]="('inventory.openDetailsAria' | translate) + ' ' + p.name"
+                        (click)="openProduct(p)">›</button>
             </div>
 
-            <!-- Panel de detalle -->
             <div *ngIf="selectedProduct?.id === p.id" class="product-details">
-                <p>
-                    <strong>Description:</strong>
-                    {{ p.description || 'No description available.' }}
-                </p>
-                <p>
-                    <strong>Condition:</strong> {{ p.state || 'Not specified' }}
-                </p>
-                <p><strong>Quantity:</strong> {{ p.quantity ?? 'N/A' }}</p>
-
+                <p><strong>{{ 'inventory.details.description' | translate }}:</strong> {{ p.description || ('inventory.details.noDescription' | translate) }}</p>
+                <p><strong>{{ 'inventory.details.state' | translate }}:</strong> {{ p.state || ('inventory.details.notSpecified' | translate) }}</p>
+                <p><strong>{{ 'inventory.details.quantity' | translate }}:</strong> {{ p.quantity ?? 'N/A' }}</p>
                 <div class="detail-actions">
-                    <button class="btn-outline" (click)="selectedProduct = null">
-                        Close
-                    </button>
+                    <button class="btn-outline" (click)="selectedProduct = null">{{ 'common.close' | translate }}</button>
                 </div>
             </div>
         </article>
     </div>
 </section>
-

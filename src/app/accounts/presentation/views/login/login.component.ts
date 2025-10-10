@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { AccountStore } from '../../../application/accounts.store';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login',
-    standalone:true,
-    imports:[FormsModule, CommonModule],
+    standalone: true,
+    imports: [FormsModule, CommonModule, TranslateModule], // ⬅️ agregado
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
 })
@@ -31,4 +32,3 @@ export class LoginComponent {
         }
     }
 }
-

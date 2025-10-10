@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { NgFor, NgIf, NgClass } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 type Category = 'Environment' | 'Quality' | 'Safety';
 
@@ -7,12 +8,12 @@ interface MetricCard {
     id: string;
     kind: 'metric' | 'progress';
     title: string;
-    value?: string;         // metric
-    valuePct?: number;      // progress 0..100
+    value?: string;
+    valuePct?: number;
     subtitle?: string;
     category: Category;
     unit?: string;
-    trend?: number[];       // sparkline 0..100
+    trend?: number[];
     warnAbove?: number;
     critAbove?: number;
 }
@@ -20,13 +21,15 @@ interface MetricCard {
 @Component({
     selector: 'fs-monitoring-view',
     standalone: true,
-    imports: [NgFor, NgIf, NgClass],
+    imports: [NgFor, NgIf, NgClass, TranslateModule], // ⬅️ agregado
     templateUrl: './monitoring.view.html',
     styleUrls: ['./monitoring.view.css'],
 })
 export class MonitoringView {
     lastMonitoringDate = '10/07/2025';
     lastSync = '2 min ago';
+    // si tu HTML usa {{ 'monitoring.lastSync' | translate:{ minutes: lastSyncMinutes } }}
+    get lastSyncMinutes() { return 2; }
 
     categories: (Category | 'All')[] = ['All', 'Environment', 'Quality', 'Safety'];
     activeCategory = signal<Category | 'All'>('All');

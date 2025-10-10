@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { NgFor, NgIf, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 type Severity = 'critical' | 'warning' | 'info';
 type State = 'active' | 'muted' | 'resolved';
@@ -18,7 +19,7 @@ interface AlertCard {
 @Component({
     selector: 'fs-alerts-view',
     standalone: true,
-    imports: [NgFor, NgIf, NgClass, FormsModule],
+    imports: [NgFor, NgIf, NgClass, FormsModule, TranslateModule], // ⬅️ agregado
     templateUrl: './alerts.view.html',
     styleUrls: ['./alerts.view.css'],
 })
@@ -30,7 +31,6 @@ export class AlertsView {
         { id:'4', severity:'warning',  state:'resolved', title:'Cleanliness low',     message:'Below 80% threshold',                 source:'Cleanliness', timeAgo:'yesterday' },
     ]);
 
-    // Tabs y filtros
     tabs = [
         { key:'active' as State,   label:'Active' },
         { key:'muted' as State,    label:'Muted' },
@@ -53,7 +53,6 @@ export class AlertsView {
         });
     });
 
-    // Acciones (frontend)
     resolve(a: AlertCard){ a.state = 'resolved'; this._all.set([...this._all()]); }
     mute(a: AlertCard){ a.state = 'muted'; this._all.set([...this._all()]); }
 

@@ -4,11 +4,12 @@ import { AccountStore } from '../../../application/accounts.store';
 import { User } from '../../../domain/model/user.entity';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-register',
-    standalone:true,
-    imports:[FormsModule, CommonModule],
+    standalone: true,
+    imports: [FormsModule, CommonModule, TranslateModule],
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
@@ -36,5 +37,3 @@ export class RegisterComponent {
         this.router.navigate(['/plan']);
     }
 }
-
-

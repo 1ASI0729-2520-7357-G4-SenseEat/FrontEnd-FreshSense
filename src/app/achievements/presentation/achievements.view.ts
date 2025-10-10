@@ -1,5 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { NgFor, NgIf, NgClass } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 type AchievementStatus = 'in-progress' | 'pending' | 'completed';
 
@@ -10,18 +11,17 @@ interface Achievement {
     desc: string;
     progress?: number;
     status: AchievementStatus;
-    pts: number;           // puntos que otorga
+    pts: number;
 }
 
 @Component({
     selector: 'fs-achievements-view',
     standalone: true,
-    imports: [NgFor, NgIf, NgClass],
+    imports: [NgFor, NgIf, NgClass, TranslateModule], // ⬅️ agregado
     templateUrl: './achievements.view.html',
     styleUrl: './achievements.view.css'
 })
 export class AchievementsView {
-    // Mock data (puedes ajustar libremente)
     private readonly all = signal<Achievement[]>([
         { id:'a1', icon:'🎯', title:'Food Guardian', desc:'Maintain all items in good condition for 14 days.', status:'completed', pts:120 },
         { id:'a2', icon:'🥗', title:'Green Saver', desc:'Keep leafy greens under ideal humidity for 7 days.', status:'in-progress', progress:68, pts:80 },
@@ -37,7 +37,6 @@ export class AchievementsView {
     readonly pending     = computed(() => this.all().filter(a => a.status === 'pending'));
     readonly completed   = computed(() => this.all().filter(a => a.status === 'completed'));
 
-    // UI state
     readonly tabs: {key:AchievementStatus|'all', label:string}[] = [
         { key:'in-progress', label:'In-Progress' },
         { key:'pending',     label:'Pending' },
@@ -46,10 +45,8 @@ export class AchievementsView {
     ];
     activeTab = signal<AchievementStatus|'all'>('in-progress');
 
-    // Highlight (último completado)
     latestCompleted = computed(() => this.completed()[0] ?? this.all()[0]);
 
-    // Derivados para contadores
     count = {
         inProgress: computed(() => this.inProgress().length),
         pending:    computed(() => this.pending().length),
@@ -57,7 +54,6 @@ export class AchievementsView {
         all:        computed(() => this.all().length),
     };
 
-    // Lista visible por tab
     visible = computed(() => {
         const tab = this.activeTab();
         if (tab === 'in-progress') return this.inProgress();
@@ -68,6 +64,5 @@ export class AchievementsView {
 
     setTab(key:AchievementStatus|'all'){ this.activeTab.set(key); }
 
-    // Formatea puntos
     pts(n:number){ return `${n} pts`; }
 }

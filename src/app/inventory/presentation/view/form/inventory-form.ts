@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-inventory-form',
     standalone: true,
-    imports: [CommonModule, FormsModule, HttpClientModule],
+    imports: [CommonModule, FormsModule, HttpClientModule, TranslateModule], // ⬅️ agregado
     templateUrl: './inventory-form.html',
     styleUrls: ['./inventory-form.css'],
 })
@@ -50,4 +51,3 @@ export class InventoryAddComponent {
         this.router.navigate(['/inventory']);
     }
 }
-

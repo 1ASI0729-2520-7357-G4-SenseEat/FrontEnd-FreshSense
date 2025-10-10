@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 type TabKey = 'profile' | 'preferences' | 'theme' | 'notifications' | 'security' | 'integrations';
 
@@ -14,7 +15,7 @@ interface Notif { email: boolean; push: boolean; weeklyReport: boolean; critical
 @Component({
     selector: 'fs-settings-view',
     standalone: true,
-    imports: [FormsModule, NgFor, NgIf],
+    imports: [FormsModule, NgFor, NgIf, TranslateModule], // ⬅️ agregado
     templateUrl: './settings.view.html',
     styleUrls: ['./settings.view.css'],
 })

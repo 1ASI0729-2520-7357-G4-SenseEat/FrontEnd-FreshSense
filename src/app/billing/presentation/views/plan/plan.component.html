@@ -1,31 +1,31 @@
 <div class="plan-container">
     <div class="banner-section">
-        <img src="/banneralimentos.jpg" alt="Banner de planes" />
+        <img src="/banneralimentos.jpg" alt="{{ 'plans.bannerAlt' | translate }}" />
     </div>
 
     <div class="plans-section">
-        <h2>Elige tu Plan</h2>
+        <h2>{{ 'plans.title' | translate }}</h2>
 
         <div class="plans-grid">
             <div class="plan-card">
-                <h3>Plan Básico</h3>
-                <p>Ideal para usuarios individuales que desean reducir desperdicios en casa.</p>
-                <h4>S/ 19.90 / mes</h4>
-                <button (click)="selectPlan('basic')">Seleccionar</button>
+                <h3>{{ 'plans.basic.title' | translate }}</h3>
+                <p>{{ 'plans.basic.desc' | translate }}</p>
+                <h4>{{ 'plans.basic.price' | translate }}</h4>
+                <button (click)="selectPlan('basic')">{{ 'plans.select' | translate }}</button>
             </div>
 
             <div class="plan-card featured">
-                <h3>Plan Premium</h3>
-                <p>Incluye herramientas avanzadas de análisis y recetas inteligentes.</p>
-                <h4>S/ 39.90 / mes</h4>
-                <button (click)="selectPlan('premium')">Seleccionar</button>
+                <h3>{{ 'plans.premium.title' | translate }}</h3>
+                <p>{{ 'plans.premium.desc' | translate }}</p>
+                <h4>{{ 'plans.premium.price' | translate }}</h4>
+                <button (click)="selectPlan('premium')">{{ 'plans.select' | translate }}</button>
             </div>
 
             <div class="plan-card">
-                <h3>Plan Familiar</h3>
-                <p>Comparte tu cuenta con hasta 4 miembros de tu hogar.</p>
-                <h4>S/ 59.90 / mes</h4>
-                <button (click)="selectPlan('family')">Seleccionar</button>
+                <h3>{{ 'plans.family.title' | translate }}</h3>
+                <p>{{ 'plans.family.desc' | translate }}</p>
+                <h4>{{ 'plans.family.price' | translate }}</h4>
+                <button (click)="selectPlan('family')">{{ 'plans.select' | translate }}</button>
             </div>
         </div>
     </div>

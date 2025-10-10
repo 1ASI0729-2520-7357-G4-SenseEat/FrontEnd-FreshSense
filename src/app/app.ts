@@ -1,12 +1,18 @@
-import { Component, signal } from '@angular/core';
+// src/app/app.ts
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from './core/i18n/language.service';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet],
-    templateUrl: './app.html',
-    styleUrl: './app.css'
+    standalone: true,
+    imports: [RouterOutlet, TranslateModule],
+    template: `
+    <router-outlet></router-outlet>
+  `,
+    styles: [``]
 })
-export class App {
-    protected readonly title = signal('FreshSense');
+export class AppComponent {
+    private _ = inject(LanguageService);
 }
