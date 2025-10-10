@@ -1,0 +1,68 @@
+<section class="wrap">
+    <header class="head">
+        <h2 class="h1">{{ 'reports.title' | translate }}</h2>
+
+        <div class="filters">
+            <label class="input">
+                <span>{{ 'reports.from' | translate }}</span>
+                <input type="date" [(ngModel)]="fromDate">
+            </label>
+            <label class="input">
+                <span>{{ 'reports.to' | translate }}</span>
+                <input type="date" [(ngModel)]="toDate">
+            </label>
+            <button class="btn" (click)="applyRange()">{{ 'reports.apply' | translate }}</button>
+        </div>
+    </header>
+
+    <div class="grid">
+        <article class="card span-8">
+            <h3 class="h2">{{ 'reports.weeklyWaste' | translate }}</h3>
+            <div class="bars">
+                <div class="bar" *ngFor="let d of days()" [style.height.%]="(d.wasteKg / maxWaste) * 100">
+                    <span class="bar__value">{{ d.wasteKg }}</span>
+                    <span class="bar__label">{{ d.label }}</span>
+                </div>
+            </div>
+        </article>
+
+        <article class="card span-4">
+            <div class="kpis">
+                <div class="kpi">
+                    <strong>{{ 'reports.kpi.gain' | translate }}</strong>
+                    <div class="kpi__value pos">+{{ gainPct }}%</div>
+                    <small class="muted">{{ 'reports.vsLastWeek' | translate }}</small>
+                </div>
+                <div class="kpi">
+                    <strong>{{ 'reports.kpi.loss' | translate }}</strong>
+                    <div class="kpi__value neg">-{{ lossPct }}%</div>
+                    <small class="muted">{{ 'reports.vsLastWeek' | translate }}</small>
+                </div>
+                <div class="kpi">
+                    <strong>{{ 'reports.kpi.improvement' | translate }}</strong>
+                    <div class="kpi__value pos">+{{ improvementPct }}%</div>
+                    <small class="muted">{{ 'reports.mtd' | translate }}</small>
+                </div>
+            </div>
+        </article>
+
+        <article class="card span-12">
+            <h3 class="h2">{{ 'reports.trends' | translate }}</h3>
+            <div class="legend">
+                <span class="dot blue"></span> {{ 'monitoring.temperature' | translate }}
+                <span class="dot red"></span> {{ 'monitoring.humidity' | translate }}
+            </div>
+
+            <svg class="chart" [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" [attr.aria-label]="'reports.trends' | translate">
+                <g class="gridlines" *ngFor="let y of [0,25,50,75,100]">
+                    <line [attr.x1]="pad" [attr.x2]="width-pad" [attr.y1]="yScale(y)" [attr.y2]="yScale(y)"></line>
+                </g>
+                <polyline class="hum" [attr.points]="polyline(humidity)"></polyline>
+                <polyline class="temp" [attr.points]="polyline(temperature)"></polyline>
+                <g *ngFor="let d of days(); let i = index">
+                    <text class="tick" [attr.x]="xScale(i)" [attr.y]="height-6">{{ d.label[0] }}</text>
+                </g>
+            </svg>
+        </article>
+    </div>
+</section>

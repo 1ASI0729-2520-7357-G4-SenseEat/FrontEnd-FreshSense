@@ -1,0 +1,97 @@
+<section class="wrap recipes-page" aria-labelledby="recipes-title">
+    <header class="page-head fx-sub">
+        <h2 id="recipes-title" class="section-title fx-title">{{ 'recipes.title' | translate }}</h2>
+    </header>
+
+    <form class="search" (submit)="$event.preventDefault()">
+        <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="filterRecipes()"
+               [placeholder]="'recipes.searchPlaceholder' | translate" name="search" />
+        <button type="button" class="search-btn" (click)="filterRecipes()" [attr.aria-label]="'common.search' | translate">
+            <span class="material-symbols-outlined">search</span>
+        </button>
+    </form>
+
+    <div class="filters">
+        <div class="filter-group">
+            <h4>{{ 'recipes.level' | translate }}</h4>
+            <div class="chips">
+                <button *ngFor="let lvl of levels" class="chip" [class.active]="selectedLevel === lvl" (click)="filterLevel(lvl)">
+                    {{ lvl }}
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <h4>{{ 'recipes.foodType' | translate }}</h4>
+            <div class="chips">
+                <button *ngFor="let typ of types" class="chip" [class.active]="selectedType === typ" (click)="filterType(typ)">
+                    {{ typ }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid cards-4 recipes-grid">
+        <article class="card recipe-card" *ngFor="let r of filteredRecipes">
+            <div class="card__media">
+                <img [src]="imageFor(r)" [alt]="r.title" loading="lazy" (error)="onImgError(r, $event)" />
+            </div>
+
+            <div class="card__body">
+                <h4 class="title">{{ r.title }}</h4>
+                <div class="rating">
+                    <span *ngFor="let _ of getStars(r.rating)" class="star">★</span>
+                </div>
+
+                <div class="meta">
+                    <span class="badge">{{ r.level }}</span>
+                    <span class="dot">•</span>
+                    <span class="muted">{{ r.time }}</span>
+                    <span class="dot">•</span>
+                    <span class="muted">{{ r.type }}</span>
+                </div>
+            </div>
+
+            <footer class="card__foot">
+                <button class="btn" type="button" (click)="openRecipe(r)">{{ 'recipes.seeRecipe' | translate }}</button>
+            </footer>
+        </article>
+    </div>
+
+    <div class="modal" *ngIf="modalOpen" (click)="closeModal()" aria-hidden="false">
+        <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="recipeDialogTitle" (click)="$event.stopPropagation()">
+            <button id="closeModalBtn" class="icon-btn close" (click)="closeModal()" [attr.aria-label]="'common.close' | translate">×</button>
+
+            <div class="dialog__media">
+                <img [src]="active ? imageFor(active) : ''" [alt]="active?.title || ('recipes.imageAlt' | translate)"
+                     (error)="active && onImgError(active, $event)" />
+            </div>
+
+            <div class="dialog__body">
+                <h2 id="recipeDialogTitle" class="dialog__title">{{ active?.title }}</h2>
+
+                <div class="rating">
+                    <span *ngFor="let _ of getStars(active?.rating || 0)" class="star">★</span>
+                </div>
+
+                <div class="meta meta--lg">
+                    <span class="badge">{{ active?.level }}</span>
+                    <span class="dot">•</span>
+                    <span>{{ active?.time }}</span>
+                    <span class="dot">•</span>
+                    <span>{{ active?.type }}</span>
+                </div>
+
+                <h3 class="subttl">{{ 'recipes.ingredients' | translate }}</h3>
+                <ul class="list">
+                    <li *ngFor="let ing of active?.ingredients">{{ ing }}</li>
+                </ul>
+
+                <h3 class="subttl">{{ 'recipes.steps' | translate }}</h3>
+                <ol class="list">
+                    <li *ngFor="let s of active?.steps">{{ s }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
