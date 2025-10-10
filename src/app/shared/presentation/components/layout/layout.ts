@@ -1,35 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { NgFor } from '@angular/common';
-
-type NavItem = { path: string; label: string; icon?: string };
+import { NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageService } from '../../../../core/i18n/language.service';
 
 @Component({
     selector: 'fs-layout',
     standalone: true,
-    imports: [
-        RouterOutlet,
-        RouterLink,
-        RouterLinkActive,
-        NgFor
-    ],
+    imports: [RouterLink, RouterLinkActive, RouterOutlet, NgFor, NgIf, TranslateModule],
     templateUrl: './layout.html',
-    styleUrl: './layout.css'
+    styleUrls: ['./layout.css'],
 })
 export class LayoutComponent {
-    appTitle = 'FreshSense';
-    collapsed = signal(false);
-
-    nav = signal<NavItem[]>([
-        { path: '/dashboard', label: 'Dashboard' },
-        { path: '/inventory', label: 'Food Inventory' },
-        { path: '/monitoring', label: 'Food Monitoring' },
-        { path: '/alerts', label: 'Alerts' },
-        { path: '/recipes', label: 'Recipes' },
-        { path: '/reports', label: 'Reports' },
-        { path: '/achievements', label: 'Achievements' },
-        { path: '/settings', label: 'Settings' },
-    ]);
-
-    toggle() { this.collapsed.update(v => !v); }
+    constructor(public lang: LanguageService) {}
+    curr() { return this.lang.current(); }
+    toggleLang() { this.lang.toggle(); }
+    setLang(l: 'en'|'es') { this.lang.use(l); }
 }

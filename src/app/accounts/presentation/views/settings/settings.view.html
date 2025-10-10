@@ -1,0 +1,263 @@
+<section class="wrap">
+    <header class="head">
+        <h2 class="title">Settings</h2>
+        <div class="head-actions">
+            <span class="dirty" *ngIf="dirty()">Unsaved changes</span>
+            <button class="btn primary" (click)="saveAll()">Save All</button>
+        </div>
+    </header>
+
+    <div class="layout">
+        <!-- Sidebar -->
+        <nav class="side">
+            <button class="side-item"
+                    *ngFor="let t of tabs"
+                    [class.active]="isActive(t.key)"
+                    (click)="setTab(t.key)">
+                <span class="ico">{{ t.icon }}</span> {{ t.label }}
+            </button>
+        </nav>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Profile -->
+            <section *ngIf="isActive('profile')" class="card">
+                <h3>Profile</h3>
+                <div class="grid">
+                    <div class="avatar">
+                        <div class="pic" [style.backgroundImage]="'url('+profile().avatarUrl+')'"></div>
+                        <button class="btn ghost" (click)="markDirty()">Upload avatar</button>
+                    </div>
+                    <div class="fields">
+                        <label class="field">
+                            <span>Name</span>
+                            <input type="text"
+                                   [ngModel]="profile().name"
+                                   (ngModelChange)="setProfile('name', $event)">
+                        </label>
+                        <label class="field">
+                            <span>Email</span>
+                            <input type="email"
+                                   [ngModel]="profile().email"
+                                   (ngModelChange)="setProfile('email', $event)">
+                        </label>
+                        <label class="field">
+                            <span>Phone</span>
+                            <input type="text"
+                                   [ngModel]="profile().phone"
+                                   (ngModelChange)="setProfile('phone', $event)">
+                        </label>
+                        <label class="field">
+                            <span>Organization</span>
+                            <input type="text"
+                                   [ngModel]="profile().org"
+                                   (ngModelChange)="setProfile('org', $event)">
+                        </label>
+                        <div class="row">
+                            <button class="btn" (click)="saveProfile()">Save profile</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preferences -->
+            <section *ngIf="isActive('preferences')" class="card">
+                <h3>Preferences</h3>
+                <div class="pref-grid">
+                    <label class="field">
+                        <span>Language</span>
+                        <select [ngModel]="prefs().language" (ngModelChange)="setPrefs('language', $event)">
+                            <option *ngFor="let l of languages" [value]="l">{{ l.toUpperCase() }}</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Time zone</span>
+                        <select [ngModel]="prefs().timezone" (ngModelChange)="setPrefs('timezone', $event)">
+                            <option *ngFor="let z of timezones" [value]="z">{{ z }}</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Units</span>
+                        <select [ngModel]="prefs().units" (ngModelChange)="setPrefs('units', $event)">
+                            <option value="metric">Metric (°C, kg)</option>
+                            <option value="imperial">Imperial (°F, lb)</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Date format</span>
+                        <select [ngModel]="prefs().dateFormat" (ngModelChange)="setPrefs('dateFormat', $event)">
+                            <option>DD/MM/YYYY</option>
+                            <option>MM/DD/YYYY</option>
+                            <option>YYYY-MM-DD</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Week starts on</span>
+                        <select [ngModel]="prefs().weekStartsOn" (ngModelChange)="setPrefs('weekStartsOn', $event)">
+                            <option value="mon">Monday</option>
+                            <option value="sun">Sunday</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="row">
+                    <button class="btn" (click)="savePrefs()">Save preferences</button>
+                </div>
+            </section>
+
+            <!-- Theme -->
+            <section *ngIf="isActive('theme')" class="card">
+                <h3>Theme</h3>
+                <div class="theme-grid">
+                    <div class="block">
+                        <label class="switch">
+                            <input type="radio" name="mode" value="light"
+                                   [ngModel]="theme().mode"
+                                   (ngModelChange)="setTheme('mode', $event)"> <span>Light</span>
+                        </label>
+                        <label class="switch">
+                            <input type="radio" name="mode" value="dark"
+                                   [ngModel]="theme().mode"
+                                   (ngModelChange)="setTheme('mode', $event)"> <span>Dark</span>
+                        </label>
+                        <label class="switch">
+                            <input type="radio" name="mode" value="system"
+                                   [ngModel]="theme().mode"
+                                   (ngModelChange)="setTheme('mode', $event)"> <span>System</span>
+                        </label>
+                    </div>
+
+                    <label class="field">
+                        <span>Primary color</span>
+                        <input type="color"
+                               [ngModel]="theme().primary"
+                               (ngModelChange)="setTheme('primary', $event)">
+                    </label>
+
+                    <label class="switch">
+                        <input type="checkbox"
+                               [ngModel]="theme().rounded"
+                               (ngModelChange)="setTheme('rounded', $event)">
+                        <span>Rounded corners</span>
+                    </label>
+
+                    <label class="field">
+                        <span>Density</span>
+                        <select [ngModel]="theme().density" (ngModelChange)="setTheme('density', $event)">
+                            <option value="comfortable">Comfortable</option>
+                            <option value="compact">Compact</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <button class="btn" (click)="applyTheme()">Apply theme</button>
+                </div>
+            </section>
+
+            <!-- Notifications -->
+            <section *ngIf="isActive('notifications')" class="card">
+                <h3>Notifications</h3>
+
+                <div class="toggles">
+                    <label class="switch">
+                        <input type="checkbox"
+                               [ngModel]="notif().email"
+                               (ngModelChange)="setNotif('email', $event)"> <span>Email</span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox"
+                               [ngModel]="notif().push"
+                               (ngModelChange)="setNotif('push', $event)"> <span>Push</span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox"
+                               [ngModel]="notif().weeklyReport"
+                               (ngModelChange)="setNotif('weeklyReport', $event)"> <span>Weekly report</span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox"
+                               [ngModel]="notif().criticalOnly"
+                               (ngModelChange)="setNotif('criticalOnly', $event)"> <span>Only critical</span>
+                    </label>
+                </div>
+
+                <div class="sliders">
+                    <label class="field">
+                        <span>Ethylene threshold (ppm)</span>
+                        <input type="range" min="0" max="2" step="0.05"
+                               [ngModel]="notif().ethyleneThreshold"
+                               (ngModelChange)="setNotif('ethyleneThreshold', $event)">
+                        <b>{{ notif().ethyleneThreshold }}</b>
+                    </label>
+
+                    <label class="field">
+                        <span>Temperature threshold (°C)</span>
+                        <input type="range" min="-5" max="15" step="0.5"
+                               [ngModel]="notif().tempThreshold"
+                               (ngModelChange)="setNotif('tempThreshold', $event)">
+                        <b>{{ notif().tempThreshold }}</b>
+                    </label>
+                </div>
+
+                <div class="row">
+                    <button class="btn ghost" (click)="resetNotif()">Reset</button>
+                    <button class="btn">Save notifications</button>
+                </div>
+            </section>
+
+            <!-- Security -->
+            <section *ngIf="isActive('security')" class="card">
+                <h3>Security</h3>
+
+                <div class="sec-grid">
+                    <div class="box">
+                        <h4>Password</h4>
+                        <p class="muted">Use a strong, unique password for your account.</p>
+                        <button class="btn" (click)="changePassword()">Change password</button>
+                    </div>
+
+                    <div class="box">
+                        <h4>Two-factor authentication</h4>
+                        <label class="switch">
+                            <input type="checkbox"
+                                   [ngModel]="twoFA()"
+                                   (ngModelChange)="twoFA.set($event)"> <span>Enable 2FA</span>
+                        </label>
+                        <p class="muted">Add an extra layer of security to your account.</p>
+                    </div>
+                </div>
+
+                <h4>Active Sessions</h4>
+                <ul class="sessions">
+                    <li *ngFor="let s of sessions(); let i = index" [class.current]="s.current">
+                        <div>
+                            <strong>{{ s.device }}</strong>
+                            <span class="muted">• {{ s.ip }} • {{ s.lastActive }}</span>
+                        </div>
+                        <button class="btn outline" *ngIf="!s.current" (click)="revokeSession(i)">Revoke</button>
+                        <span class="badge" *ngIf="s.current">Current</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Integrations -->
+            <section *ngIf="isActive('integrations')" class="card">
+                <h3>Integrations</h3>
+                <ul class="integrations">
+                    <li *ngFor="let i of integrations()">
+                        <div class="left">
+                            <div class="logo">{{ i.name[0] }}</div>
+                            <div>
+                                <strong>{{ i.name }}</strong>
+                                <div class="muted">{{ i.note || '—' }}</div>
+                            </div>
+                        </div>
+                        <button class="btn" [class.ghost]="i.connected" (click)="connect(i)">
+                            {{ i.connected ? 'Disconnect' : 'Connect' }}
+                        </button>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</section>
