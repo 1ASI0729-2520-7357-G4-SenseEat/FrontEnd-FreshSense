@@ -1,23 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { NgFor, NgIf, NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+type Severity = 'critical' | 'warning' | 'info';
+type State = 'active' | 'muted' | 'resolved';
+
+interface AlertCard {
+    id: string;
+    severity: Severity;
+    state: State;
+    title: string;
+    message: string;
+    source: 'Temp' | 'Humidity' | 'Ethylene' | 'Cleanliness' | 'Oxygen';
+    timeAgo: string;
+}
 
 @Component({
     selector: 'fs-alerts-view',
     standalone: true,
-    template: `
-        <section class="stub">
-            <h2>Alerts</h2>
-            <p>Coming soon…</p>
-            <ul class="bullets">
-                <li>High ethylene level (example)</li>
-                <li>High temperature alert (example)</li>
-                <li>Manage alerts</li>
-            </ul>
-        </section>
-    `,
-    styles: [`
-        :host .stub{background:#fff;border:1px solid #e6ece8;border-radius:16px;padding:16px;}
-        h2{margin:0 0 8px;}
-        .bullets{margin-top:8px;color:#6b7f7b}
-    `]
+    imports: [NgFor, NgIf, NgClass, FormsModule],
+    templateUrl: './alerts.view.html',
+    styleUrls: ['./alerts.view.css'],
 })
-export class AlertsView {}
+export class AlertsView {
+    private _all = signal<AlertCard[]>([
+        { id:'1', severity:'warning',  state:'active',   title:'High ethylene level', message:'Ethylene level has an exceed 0.5ppm', source:'Ethylene', timeAgo:'2m ago' },
+        { id:'2', severity:'info',     state:'active',   title:'High temperature',    message:'The temperature is above 6° C',       source:'Temp',     timeAgo:'2m ago' },
+        { id:'3', severity:'critical', state:'muted',    title:'Critical temperature',message:'Freezer above 10° C',                 source:'Temp',     timeAgo:'1h ago' },
+        { id:'4', severity:'warning',  state:'resolved', title:'Cleanliness low',     message:'Below 80% threshold',                 source:'Cleanliness', timeAgo:'yesterday' },
+    ]);
+
+    // Tabs y filtros
+    tabs = [
+        { key:'active' as State,   label:'Active' },
+        { key:'muted' as State,    label:'Muted' },
+        { key:'resolved' as State, label:'Resolved' },
+        { key:'all' as const,      label:'All' },
+    ];
+    activeTab = signal<State|'all'>('active');
+    query = signal('');
+    sevFilter = signal<Severity|'all'>('all');
+
+    visible = computed(() => {
+        const q = this.query().toLowerCase();
+        const tab = this.activeTab();
+        const sev = this.sevFilter();
+        return this._all().filter(a => {
+            const okTab = tab==='all' ? true : a.state === tab;
+            const okSev = sev==='all' ? true : a.severity === sev;
+            const okQ = !q || a.title.toLowerCase().includes(q) || a.message.toLowerCase().includes(q);
+            return okTab && okSev && okQ;
+        });
+    });
+
+    // Acciones (frontend)
+    resolve(a: AlertCard){ a.state = 'resolved'; this._all.set([...this._all()]); }
+    mute(a: AlertCard){ a.state = 'muted'; this._all.set([...this._all()]); }
+
+    openId = signal<string | null>(null);
+    open(a: AlertCard){ this.openId.set(a.id); }
+    close(){ this.openId.set(null); }
+    isOpen(a: AlertCard){ return this.openId() === a.id; }
+}

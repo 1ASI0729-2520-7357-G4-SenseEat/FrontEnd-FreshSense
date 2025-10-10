@@ -1,0 +1,71 @@
+<section class="wrap">
+    <!-- Status / KPIs -->
+    <div class="status card">
+        <div class="left">
+            <div class="dot online"></div>
+            <div>
+                <strong>Sensors status: Healthy</strong>
+                <div class="muted">Last sync {{ lastSync }}</div>
+            </div>
+        </div>
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi__label">Open issues</span><span class="kpi__val">{{ kpi.issues() }}</span></div>
+            <div class="kpi"><span class="kpi__label">Avg Humidity</span><span class="kpi__val">{{ kpi.avgHumidity() }}%</span></div>
+            <div class="kpi"><span class="kpi__label">Avg Temp</span><span class="kpi__val">{{ kpi.avgTemp() }}°C</span></div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <span class="muted">Category:</span>
+        <button class="chip" *ngFor="let c of categories" [class.active]="activeCategory()===c" (click)="setCategory(c)">
+            {{ c }}
+        </button>
+    </div>
+
+    <h2 class="h1">Food Monitoring</h2>
+
+    <!-- Cards -->
+    <div class="grid">
+        <article class="card tile" *ngFor="let c of cards()" [ngClass]="{ 'is-progress': c.kind === 'progress' }">
+            <div class="tile__head">
+                <div class="tile__icon">💧</div>
+                <div class="tile__title">{{ c.title }}</div>
+                <span class="badge" [ngClass]="badgeClass(c)">{{ badgeClass(c) }}</span>
+            </div>
+
+            <!-- metric -->
+            <div class="tile__body" *ngIf="c.kind==='metric'">
+                <div class="metric"><strong>{{ c.value }}{{ c.unit ?? '' }}</strong></div>
+                <div class="muted" *ngIf="c.subtitle">{{ c.subtitle }}</div>
+                <svg class="spark" viewBox="0 0 120 36" *ngIf="c.trend?.length">
+                    <polyline [attr.points]="sparkPoints(c.trend)" />
+                </svg>
+            </div>
+
+            <!-- progress -->
+            <div class="tile__body" *ngIf="c.kind==='progress'">
+                <div class="progress"><span [style.width.%]="c.valuePct || 0"></span></div>
+                <div class="muted">{{ c.valuePct }}%</div>
+                <svg class="spark" viewBox="0 0 120 36" *ngIf="c.trend?.length">
+                    <polyline [attr.points]="sparkPoints(c.trend)" />
+                </svg>
+            </div>
+        </article>
+
+        <!-- History -->
+        <article class="card history span-12">
+            <div class="history__head">
+                <h4 class="h2">History</h4>
+                <a class="btn ghost" href="#">Export CSV</a>
+            </div>
+            <div class="history__box">
+                <div>
+                    <div class="muted">Last monitoring</div>
+                    <strong>{{ lastMonitoringDate }}</strong>
+                </div>
+                <a class="btn primary" href="#">View last monitoring</a>
+            </div>
+        </article>
+    </div>
+</section>
