@@ -1,4 +1,3 @@
-/* ===== TOPBAR ===== */
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -32,7 +31,6 @@
     gap: 1rem;
 }
 
-/* ===== LANGUAGE SWITCH ===== */
 .lang-toggle {
     cursor: pointer;
     user-select: none;
@@ -72,7 +70,7 @@
     width: 32px;
     height: 24px;
     border-radius: 999px;
-    background: #f3a23a;
+    background: #1F9C59FF;
     transition: transform 0.25s ease;
 }
 
@@ -80,7 +78,6 @@
     transform: translateX(34px);
 }
 
-/* ===== BUTTONS ===== */
 .btn {
     cursor: pointer;
     border-radius: 10px;
@@ -99,14 +96,12 @@
     background: #f6f9f8;
 }
 
-/* ===== MAIN LAYOUT ===== */
 .main-layout {
     display: flex;
     min-height: calc(100vh - 60px);
     background: #f8faf8;
 }
 
-/* ===== SIDEBAR ===== */
 .sidebar {
     width: 240px;
     background: #ffffff;
@@ -147,13 +142,11 @@
     font-size: 1.1rem;
 }
 
-/* ===== CONTENT AREA ===== */
 .content {
     flex: 1;
     padding: 1.5rem 2rem;
 }
 
-/* ===== FOOTER ===== */
 .footer {
     text-align: center;
     padding: 0.8rem;
