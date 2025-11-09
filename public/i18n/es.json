@@ -130,7 +130,25 @@
     "integrations": {
       "title": "Integraciones",
       "connect": "Conectar",
-      "disconnect": "Desconectar"
+      "disconnect": "Desconectar",
+      "smartFridges": {
+        "title": "Integraciones: Refrigeradores inteligentes",
+        "desc": "Conecta tu refrigerador para importar productos y vencimientos.",
+        "sync": "Sincronizar ahora",
+        "lastSync": "Última sincronización",
+        "items": "ítems"
+      }
+    },
+    "notify": {
+      "title": "Notificaciones personalizadas",
+      "desc": "Elige qué alertas recibir y por qué canal.",
+      "test": "Probar notificación",
+      "keys": {
+        "inventory.low": "Inventario bajo",
+        "inventory.expiring": "Productos por vencer",
+        "recipes.new": "Nuevas recetas",
+        "achievements.unlocked": "Logros desbloqueados"
+      }
     }
   },
   "achievements": {
@@ -246,7 +264,7 @@
       "consume": "Consume",
       "discard": "Discard",
       "add": "Added",
-      "exportCsv": "Export CSV"
+      "exportCsv": "Export CSV"
     }
   },
   "recipes": {
@@ -260,8 +278,8 @@
     "steps": "Pasos"
   },
   "monitoring": {
-    "temperature":"Temperatura",
-    "humidity":"Humedad",
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
     "title": "Monitoreo de Alimentos",
     "status": { "healthy": "Estado de sensores: Saludables" },
     "lastSync": "Última sincronización hace {{minutes}} min",
@@ -283,6 +301,6 @@
     "cancel": "Cancelar",
     "close": "Cerrar",
     "search": "Buscar",
-    "all" : "Todo"
+    "all": "Todo"
   }
 }

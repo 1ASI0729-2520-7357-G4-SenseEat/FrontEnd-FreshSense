@@ -131,7 +131,25 @@
     "integrations": {
       "title": "Integrations",
       "connect": "Connect",
-      "disconnect": "Disconnect"
+      "disconnect": "Disconnect",
+      "smartFridges": {
+        "title": "Integrations: Smart fridges",
+        "desc": "Connect your fridge to import items and expirations.",
+        "sync": "Sync now",
+        "lastSync": "Last sync",
+        "items": "items"
+      }
+    },
+    "notify": {
+      "title": "Personalized notifications",
+      "desc": "Choose which alerts to receive and through which channel.",
+      "test": "Test notification",
+      "keys": {
+        "inventory.low": "Low inventory",
+        "inventory.expiring": "Expiring items",
+        "recipes.new": "New recipes",
+        "achievements.unlocked": "Achievements unlocked"
+      }
     }
   },
   "achievements": {
@@ -255,7 +273,7 @@
       "consume": "Consume",
       "discard": "Discard",
       "add": "Added",
-      "exportCsv": "Export CSV"
+      "exportCsv": "Export CSV"
     }
   },
   "recipes": {
@@ -269,8 +287,8 @@
     "steps": "Steps"
   },
   "monitoring": {
-    "temperature":"Temperature",
-    "humidity":"Humidity",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
     "title": "Food Monitoring",
     "status": { "healthy": "Sensors status: Healthy" },
     "lastSync": "Last sync {{minutes}} min ago",
@@ -292,7 +310,7 @@
     "cancel": "Cancel",
     "close": "Close",
     "search": "Search",
-    "all" : "All"
+    "all": "All"
   },
   "challenges": {
     "title": "Challenges",
