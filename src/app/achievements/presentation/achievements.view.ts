@@ -1,6 +1,8 @@
 import { Component, signal, computed } from '@angular/core';
 import { NgFor, NgIf, NgClass } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { SocialShareService } from '../application/social-share.service';
+import { captureElementToPngBlob } from '../infrastructure/capture.util';
 
 type AchievementStatus = 'in-progress' | 'pending' | 'completed';
 
@@ -17,11 +19,13 @@ interface Achievement {
 @Component({
     selector: 'fs-achievements-view',
     standalone: true,
-    imports: [NgFor, NgIf, NgClass, TranslateModule], // ⬅️ agregado
+    imports: [NgFor, NgIf, NgClass, TranslateModule],
     templateUrl: './achievements.view.html',
     styleUrl: './achievements.view.css'
 })
 export class AchievementsView {
+    constructor(private shareSvc: SocialShareService) {}
+
     private readonly all = signal<Achievement[]>([
         { id:'a1', icon:'🎯', title:'Food Guardian', desc:'Maintain all items in good condition for 14 days.', status:'completed', pts:120 },
         { id:'a2', icon:'🥗', title:'Green Saver', desc:'Keep leafy greens under ideal humidity for 7 days.', status:'in-progress', progress:68, pts:80 },
@@ -65,4 +69,35 @@ export class AchievementsView {
     setTab(key:AchievementStatus|'all'){ this.activeTab.set(key); }
 
     pts(n:number){ return `${n} pts`; }
+
+    // --- Compartir ---
+    sharingId: string | null = null;
+    lastShareMsg: { id: string; ok: boolean; text: string } | null = null;
+
+    async share(a: Achievement, cardEl: HTMLElement) {
+        this.lastShareMsg = null;
+        this.sharingId = a.id;
+
+        try {
+            const img = await captureElementToPngBlob(cardEl);
+            const status = await this.shareSvc.share({
+                title: `FreshSense - ${a.title}`,
+                text: `¡Logré “${a.title}”! ${a.desc} (${this.pts(a.pts)}) #FreshSense #FoodWaste`,
+                url: location.origin,
+                imageBlob: img
+            });
+
+            this.lastShareMsg = {
+                id: a.id,
+                ok: status === 'ok' || status === 'unsupported',
+                text: status === 'ok'
+                    ? '¡Compartido correctamente!'
+                    : 'Se abrió un enlace para compartir. Si tu navegador no soporta compartir con imagen, publica manualmente.'
+            };
+        } catch {
+            this.lastShareMsg = { id: a.id, ok: false, text: 'No se pudo compartir. Verifica tu conexión e inténtalo nuevamente.' };
+        } finally {
+            this.sharingId = null;
+        }
+    }
 }
