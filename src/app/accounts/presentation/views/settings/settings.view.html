@@ -9,7 +9,8 @@
 
     <div class="layout">
         <nav class="side">
-            <button class="side-item"
+            <button
+                    class="side-item"
                     *ngFor="let t of tabs"
                     [class.active]="isActive(t.key)"
                     (click)="setTab(t.key)">
@@ -24,7 +25,9 @@
                 <div class="grid">
                     <div class="avatar">
                         <div class="pic" [style.backgroundImage]="'url('+profile().avatarUrl+')'"></div>
-                        <button class="btn ghost" (click)="markDirty()">{{ 'settings.profile.uploadAvatar' | translate }}</button>
+                        <button class="btn ghost" (click)="markDirty()">
+                            {{ 'settings.profile.uploadAvatar' | translate }}
+                        </button>
                     </div>
                     <div class="fields">
                         <label class="field">
@@ -180,6 +183,31 @@
                     <button class="btn ghost" (click)="resetNotif()">{{ 'settings.notifications.reset' | translate }}</button>
                     <button class="btn">{{ 'settings.notifications.save' | translate }}</button>
                 </div>
+
+                <!-- US24: Notificaciones personalizadas (por categoría y canal) -->
+                <section class="subcard">
+                    <h4>{{ 'settings.notify.title' | translate }}</h4>
+                    <p class="muted">{{ 'settings.notify.desc' | translate }}</p>
+
+                    <div class="pref-table">
+                        <div class="pref-row" *ngFor="let k of prefKeys">
+                            <label class="pref-name">
+                                <input type="checkbox" [(ngModel)]="notifyPrefs[k].enabled">
+                                {{ 'settings.notify.keys.'+k | translate }}
+                            </label>
+                            <div class="pref-channels">
+                                <label><input type="checkbox" [checked]="has(k,'inapp')" (change)="toggleCh(k,'inapp',$event)"> In-App</label>
+                                <label><input type="checkbox" [checked]="has(k,'push')"  (change)="toggleCh(k,'push',$event)"> Push</label>
+                                <label><input type="checkbox" [checked]="has(k,'email')" (change)="toggleCh(k,'email',$event)"> Email</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <button class="btn" (click)="savePrefs()">{{ 'common.save' | translate }}</button>
+                        <button class="btn outline" (click)="tryPush()">{{ 'settings.notify.test' | translate }}</button>
+                    </div>
+                </section>
             </section>
 
             <!-- Security -->
@@ -219,6 +247,8 @@
             <!-- Integrations -->
             <section *ngIf="isActive('integrations')" class="card">
                 <h3>{{ 'settings.integrations.title' | translate }}</h3>
+
+                <!-- listado existente -->
                 <ul class="integrations">
                     <li *ngFor="let i of integrations()">
                         <div class="left">
@@ -233,6 +263,32 @@
                         </button>
                     </li>
                 </ul>
+
+                <!-- US22: Smart Fridges -->
+                <section class="subcard">
+                    <h4>{{ 'settings.integrations.smartFridges.title' | translate }}</h4>
+                    <p class="muted">{{ 'settings.integrations.smartFridges.desc' | translate }}</p>
+
+                    <div class="sf-grid">
+                        <div class="sf-item" *ngFor="let p of providers">
+                            <div class="sf-head">
+                                <strong>{{ p.provider }}</strong>
+                                <span class="badge" [class.ok]="status(p)==='connected'">{{ status(p) }}</span>
+                            </div>
+                            <button class="btn small" (click)="toggle(p)">
+                                {{ status(p)==='connected' ? ('settings.integrations.disconnect'|translate) : ('settings.integrations.connect'|translate) }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <button class="btn" (click)="sync()">{{ 'settings.integrations.smartFridges.sync' | translate }}</button>
+                        <span *ngIf="lastSync && importedCount>=0" class="muted">
+              {{ 'settings.integrations.smartFridges.lastSync' | translate }}:
+                            {{ lastSync | date:'short' }} — {{ importedCount }} {{ 'settings.integrations.smartFridges.items' | translate }}
+            </span>
+                    </div>
+                </section>
             </section>
         </div>
     </div>

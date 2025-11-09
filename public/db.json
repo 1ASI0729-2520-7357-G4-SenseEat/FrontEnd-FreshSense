@@ -730,5 +730,13 @@
       "points": 120,
       "rank": 2
     }
+  ],
+  "integrations": [
+    { "id": 1, "provider": "Samsung SmartThings", "status": "disconnected" },
+    { "id": 2, "provider": "LG ThinQ", "status": "disconnected" }
+  ],
+  "fridgeSamples": [
+    { "id": "f1", "name": "Leche", "qty": 1, "unit": "lt", "expiresAt": "2025-11-15" },
+    { "id": "f2", "name": "Huevos", "qty": 12, "unit": "un", "expiresAt": "2025-11-20" }
   ]
 }

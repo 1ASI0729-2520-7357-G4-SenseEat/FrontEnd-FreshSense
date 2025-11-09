@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+
 
 type TabKey = 'profile' | 'preferences' | 'theme' | 'notifications' | 'security' | 'integrations';
 
@@ -12,10 +13,15 @@ interface Prefs { language: string; timezone: string; units: 'metric'|'imperial'
 interface Theme { mode: 'light'|'dark'|'system'; primary: string; rounded: boolean; density: 'comfortable'|'compact'; }
 interface Notif { email: boolean; push: boolean; weeklyReport: boolean; criticalOnly: boolean; ethyleneThreshold: number; tempThreshold: number; }
 
+// ---- US24: tipos de preferencias granulares de notificaciones
+type Channel = 'inapp'|'push'|'email';
+type NotifyKey = 'inventory.low' | 'inventory.expiring' | 'recipes.new' | 'achievements.unlocked';
+type NotifyPrefs = Record<NotifyKey, { enabled:boolean; channels: Channel[] }>;
+
 @Component({
     selector: 'fs-settings-view',
     standalone: true,
-    imports: [FormsModule, NgFor, NgIf, TranslateModule], // ⬅️ agregado
+    imports: [FormsModule, NgFor, NgIf, DatePipe, TranslateModule],
     templateUrl: './settings.view.html',
     styleUrls: ['./settings.view.css'],
 })
@@ -61,7 +67,12 @@ export class SettingsView {
         this.prefs.set({ ...this.prefs(), [k]: v });
         this.markDirty();
     }
-    savePrefs(){ alert('Preferences saved (frontend mock)'); }
+
+    // NOTE: también guarda preferencias granulares (US24)
+    savePrefs(){
+        localStorage.setItem('fs.notify.prefs', JSON.stringify(this.notifyPrefs));
+        alert('Preferences saved (frontend mock)');
+    }
 
     // Theme
     theme = signal<Theme>({
@@ -76,7 +87,7 @@ export class SettingsView {
     }
     applyTheme(){ alert('Theme applied (frontend mock)'); }
 
-    // Notifications
+    // Notifications (básicas)
     notif = signal<Notif>({
         email: true,
         push: false,
@@ -91,6 +102,41 @@ export class SettingsView {
     }
     resetNotif(){
         this.notif.set({ email:true, push:false, weeklyReport:true, criticalOnly:true, ethyleneThreshold:0.5, tempThreshold:6 });
+    }
+
+    // ---- US24: Notificaciones personalizadas (granulares)
+    private defaultNotify: NotifyPrefs = {
+        'inventory.low':        { enabled: true,  channels: ['inapp'] },
+        'inventory.expiring':   { enabled: true,  channels: ['inapp','push'] },
+        'recipes.new':          { enabled: false, channels: ['inapp'] },
+        'achievements.unlocked':{ enabled: true,  channels: ['inapp'] }
+    };
+    notifyPrefs: NotifyPrefs = this.loadNotifyPrefs();
+    prefKeys: NotifyKey[] = Object.keys(this.notifyPrefs) as NotifyKey[];
+
+    private loadNotifyPrefs(): NotifyPrefs {
+        try {
+            const raw = localStorage.getItem('fs.notify.prefs');
+            if (raw) return JSON.parse(raw) as NotifyPrefs;
+        } catch {}
+        return structuredClone(this.defaultNotify);
+    }
+
+    has(k: NotifyKey, ch: Channel) { return this.notifyPrefs[k].channels.includes(ch); }
+    toggleCh(k: NotifyKey, ch: Channel, e: Event){
+        const checked = (e.target as HTMLInputElement).checked;
+        const arr = this.notifyPrefs[k].channels;
+        if (checked && !arr.includes(ch)) arr.push(ch);
+        if (!checked) this.notifyPrefs[k].channels = arr.filter(x=>x!==ch);
+        this.markDirty();
+    }
+
+    async tryPush(){
+        if (!('Notification' in window)) { alert('Notifications API not available'); return; }
+        if (Notification.permission === 'default') await Notification.requestPermission();
+        if (Notification.permission === 'granted') {
+            new Notification('FreshSense', { body: 'Test notification ✅' });
+        }
     }
 
     // Security
@@ -121,8 +167,48 @@ export class SettingsView {
         this.integrations.set([...this.integrations()]);
     }
 
+    // ---- US22: Smart fridges (frontend mock con localStorage)
+    providers = [
+        { id: 1, provider: 'Samsung SmartThings' },
+        { id: 2, provider: 'LG ThinQ' }
+    ];
+    lastSync?: Date;
+    importedCount = -1;
+
+    status(p: {id:number}) : 'connected'|'disconnected' {
+        const v = localStorage.getItem('fs.integrations.'+p.id);
+        return (v === 'connected' || v === 'disconnected') ? v : 'disconnected';
+    }
+
+    toggle(p: {id:number}){
+        const next = this.status(p) === 'connected' ? 'disconnected' : 'connected';
+        localStorage.setItem('fs.integrations.'+p.id, next);
+    }
+
+    async sync(){
+        // Intenta leer /db.json; si falla, usa fallback
+        try {
+            const res = await fetch('/db.json');
+            if (res.ok) {
+                const data = await res.json();
+                this.importedCount = Array.isArray(data?.fridgeSamples) ? data.fridgeSamples.length : 0;
+            } else {
+                this.importedCount = 0;
+            }
+        } catch {
+            // fallback si no hay /db.json accesible
+            this.importedCount = 2;
+        }
+        this.lastSync = new Date();
+    }
+
     // Unsaved changes flag
     dirty = signal(false);
     markDirty(){ this.dirty.set(true); }
-    saveAll(){ this.dirty.set(false); alert('Settings saved (frontend mock)'); }
+    saveAll(){
+        // guarda también las prefs granulares
+        localStorage.setItem('fs.notify.prefs', JSON.stringify(this.notifyPrefs));
+        this.dirty.set(false);
+        alert('Settings saved (frontend mock)');
+    }
 }
