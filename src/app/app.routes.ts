@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/presentation/components/layout/layout';
 
 export const routes: Routes = [
-    // Puedes redirigir a 'login' si así lo prefieres
+    // Landing redirige (ajústalo si prefieres ir a login)
     { path: '', redirectTo: 'register', pathMatch: 'full' },
 
     // Auth / Billing
@@ -49,12 +49,6 @@ export const routes: Routes = [
                         .then(m => m.INVENTORY_ROUTES),
             },
             {
-                path: 'inventory',
-                loadComponent: () =>
-                    import('./inventory/presentation/view/list/inventory.view')
-                        .then(m => m.FoodInventoryView),
-            },
-            {
                 path: 'monitoring',
                 loadComponent: () =>
                     import('./monitoring/presentation/monitoring.view')
@@ -84,23 +78,24 @@ export const routes: Routes = [
                     import('./achievements/presentation/achievements.view')
                         .then(m => m.AchievementsView),
             },
+
+            // ➕ NUEVO: Challenges / Retos
+            {
+                path: 'challenges',
+                loadComponent: () =>
+                    import('./challenges/presentation/challenges.view')
+                        .then(m => m.ChallengesView),
+            },
+
             {
                 path: 'settings',
                 loadComponent: () =>
                     import('./accounts/presentation/views/settings/settings.view')
                         .then(m => m.SettingsView),
             },
-            {
-                path: '',
-                redirectTo: 'inventory',
-                pathMatch: 'full'
-            },
-            {
-                path: 'inventory',
-                loadChildren: () =>
-                    import('./inventory/presentation/view/inventory.routes')
-                        .then(m => m.INVENTORY_ROUTES),
-            },
+
+            // default dentro del layout
+            { path: '', redirectTo: 'inventory', pathMatch: 'full' },
         ],
     },
 
