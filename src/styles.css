@@ -1,6 +1,7 @@
 :root {
     --fs-bg:#f6faf8; --fs-text:#1d2b2a; --fs-muted:#6b7f7b;
     --fs-primary:#1f9c59; --fs-primary-weak:#e5f5ed; --fs-card:#fff; --fs-border:#e6ece8;
+    --border: #dcdcdc;
 }
 *{ box-sizing: border-box; }
 html,body{ margin:0; height:100%; background:var(--fs-bg); color:var(--fs-text);

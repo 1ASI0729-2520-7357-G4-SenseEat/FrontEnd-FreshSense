@@ -50,7 +50,15 @@
                 <p><strong>{{ 'inventory.details.state' | translate }}:</strong> {{ p.state || ('inventory.details.notSpecified' | translate) }}</p>
                 <p><strong>{{ 'inventory.details.quantity' | translate }}:</strong> {{ p.quantity ?? 'N/A' }}</p>
                 <div class="detail-actions">
-                    <button class="btn-outline" (click)="selectedProduct = null">{{ 'common.close' | translate }}</button>
+                    <button class="btn-outline" (click)="logAction(p, 'consume')">
+                        {{ 'reports.history.consume' | translate }}
+                    </button>
+                    <button class="btn-outline" (click)="logAction(p, 'discard')">
+                        {{ 'reports.history.discard' | translate }}
+                    </button>
+                    <button class="btn-outline" (click)="selectedProduct = null">
+                        {{ 'common.close' | translate }}
+                    </button>
                 </div>
             </div>
         </article>

@@ -18,11 +18,37 @@ type Product = {
 @Component({
     selector: 'fs-inventory',
     standalone: true,
-    imports: [NgFor, NgIf, FormsModule, CommonModule, HttpClientModule, TranslateModule], // ⬅️ agregado
+    imports: [NgFor, NgIf, FormsModule, CommonModule, HttpClientModule, TranslateModule],
     templateUrl: './inventory-list.html',
     styleUrls: ['./inventory.css']
 })
 export class FoodInventoryView implements OnInit {
+    logAction(p: any, action: 'consume' | 'discard') {
+        const entry = {
+            productId: p.id,
+            productName: p.name,
+            category: p.category || 'N/A',
+            action,
+            quantity: 1,
+            date: new Date().toISOString()
+        };
+
+        this.http.post('http://localhost:3000/history', entry).subscribe({
+            next: () => {
+                alert(action === 'consume' ? 'Consumo registrado' : 'Descarte registrado');
+            },
+            error: () => {
+                alert('No se pudo registrar el historial.');
+            }
+        });
+
+        const newQty = Math.max(0, (p.quantity || 0) - 1);
+        this.http.patch(`http://localhost:3000/products/${p.id}`, { quantity: newQty }).subscribe();
+
+        p.quantity = newQty;
+        this.selectedProduct = null;
+    }
+
     products: Product[] = [];
     filteredProducts: Product[] = [];
     searchTerm = '';
