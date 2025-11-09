@@ -36,3 +36,8 @@
 .legend { display:flex; align-items:center; gap:12px; font-size:13px; color:#5f716c; }
 .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
 .dot.blue{ background:#2d7be6; } .dot.red{ background:#e64545; }
+
+.history-filters { display: grid; grid-template-columns: repeat(5, minmax(180px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+.table-wrap { overflow: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: .5rem .75rem; border-bottom: 1px solid #e5e7eb; }

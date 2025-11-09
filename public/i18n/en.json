@@ -234,6 +234,19 @@
       "gain": "Gain",
       "loss": "Loss",
       "improvement": "Percentage Improvement"
+    },
+    "history": {
+      "title": "Consumption History",
+      "date": "Date",
+      "action": "Action",
+      "product": "Product",
+      "category": "Category",
+      "qty": "Quantity",
+      "empty": "No records available.",
+      "consume": "Consume",
+      "discard": "Discard",
+      "add": "Added",
+      "exportCsv": "Export CSV"
     }
   },
   "recipes": {
@@ -247,6 +260,8 @@
     "steps": "Steps"
   },
   "monitoring": {
+    "temperature":"Temperature",
+    "humidity":"Humidity",
     "title": "Food Monitoring",
     "status": { "healthy": "Sensors status: Healthy" },
     "lastSync": "Last sync {{minutes}} min ago",
@@ -267,6 +282,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "close": "Close",
-    "search": "Search"
+    "search": "Search",
+    "all": "All"
   }
 }
