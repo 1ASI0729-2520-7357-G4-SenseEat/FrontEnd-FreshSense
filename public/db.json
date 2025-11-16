@@ -25,6 +25,13 @@
       "email": "joeel@gmail.com",
       "password": "1234",
       "paid": true
+    },
+    {
+      "id": "2da5",
+      "name": "Maria",
+      "email": "maria@gmail.com",
+      "password": "1234",
+      "paid": true
     }
   ],
   "recipes": [
