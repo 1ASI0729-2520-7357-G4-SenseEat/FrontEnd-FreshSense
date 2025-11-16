@@ -25,15 +25,30 @@ export class RegisterComponent {
     constructor(private accountStore: AccountStore, private router: Router) {}
     goToLogin() {
         this.router.navigate(['/login']);
-    }
-    onSubmit() {
+
+    }async onSubmit() {
+        if (!this.user.name || !this.user.email || !this.user.password || !this.confirmPassword) {
+            alert('No ha llenado todos los campos ❌');
+            return;
+        }
+
         if (this.user.password !== this.confirmPassword) {
             alert('Las contraseñas no coinciden ❌');
             return;
         }
 
-        this.accountStore.register(this.user);
-        alert('Usuario registrado correctamente ✅');
-        this.router.navigate(['/plan']);
+        const success = await this.accountStore.register(this.user);
+
+        if (success) {
+            alert('Usuario registrado correctamente ✅');
+            // Guardar correo en localStorage para usarlo en Plan/Payment
+            localStorage.setItem('registerEmail', this.user.email);
+            this.router.navigate(['/plan']); // ⬅️ pantalla de selección de plan
+        } else {
+            alert('Usuario ya registrado. Registra uno nuevo ❌');
+        }
     }
+
+
+
 }

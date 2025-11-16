@@ -9,5 +9,14 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrl: './home.view.css'
 })
 export class HomeView {
-    name = 'Luis';
+    name: string = '';
+
+    constructor() {
+        const storedUser = localStorage.getItem('user');
+
+        if (storedUser) {
+            const user = JSON.parse(storedUser);
+            this.name = user.name; // 👈 Aquí sale el nombre del usuario registrado
+        }
+    }
 }
