@@ -1,4 +1,46 @@
 {
+  "users": [
+    {
+      "id": "09f3",
+      "name": "",
+      "email": "",
+      "password": ""
+    },
+    {
+      "id": "d47e",
+      "name": "Jorge",
+      "email": "jorge@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "61d4",
+      "name": "luis",
+      "email": "luis@gmail.com",
+      "password": "1234",
+      "paid": false
+    },
+    {
+      "id": "5153",
+      "name": "joeel",
+      "email": "joeel@gmail.com",
+      "password": "1234",
+      "paid": true
+    },
+    {
+      "id": "2da5",
+      "name": "Maria",
+      "email": "maria@gmail.com",
+      "password": "1234",
+      "paid": true
+    },
+    {
+      "id": "d5ef",
+      "name": "lupe",
+      "email": "lupe@gmail.com",
+      "password": "12345",
+      "paid": true
+    }
+  ],
   "recipes": [
     {
       "id": "1",
@@ -700,43 +742,68 @@
       "userId": "u-002",
       "displayName": "María G.",
       "points": 320,
-      "rank": 1
+      "rank": 1,
+      "id": "bf0c"
     },
     {
       "challengeId": "c1",
       "userId": "u-001",
       "displayName": "Tú",
       "points": 280,
-      "rank": 2
+      "rank": 2,
+      "id": "76c1"
     },
     {
       "challengeId": "c1",
       "userId": "u-003",
       "displayName": "Luis P.",
       "points": 210,
-      "rank": 3
+      "rank": 3,
+      "id": "71f8"
     },
     {
       "challengeId": "c2",
       "userId": "u-004",
       "displayName": "Ana M.",
       "points": 150,
-      "rank": 1
+      "rank": 1,
+      "id": "8bd7"
     },
     {
       "challengeId": "c2",
       "userId": "u-001",
       "displayName": "Tú",
       "points": 120,
-      "rank": 2
+      "rank": 2,
+      "id": "4e4b"
     }
   ],
   "integrations": [
-    { "id": 1, "provider": "Samsung SmartThings", "status": "disconnected" },
-    { "id": 2, "provider": "LG ThinQ", "status": "disconnected" }
+    {
+      "id": "1",
+      "provider": "Samsung SmartThings",
+      "status": "disconnected"
+    },
+    {
+      "id": "2",
+      "provider": "LG ThinQ",
+      "status": "disconnected"
+    }
   ],
   "fridgeSamples": [
-    { "id": "f1", "name": "Leche", "qty": 1, "unit": "lt", "expiresAt": "2025-11-15" },
-    { "id": "f2", "name": "Huevos", "qty": 12, "unit": "un", "expiresAt": "2025-11-20" }
+    {
+      "id": "f1",
+      "name": "Leche",
+      "qty": 1,
+      "unit": "lt",
+      "expiresAt": "2025-11-15"
+    },
+    {
+      "id": "f2",
+      "name": "Huevos",
+      "qty": 12,
+      "unit": "un",
+      "expiresAt": "2025-11-20"
+    }
   ]
 }

@@ -22,13 +22,21 @@ export class LoginComponent {
     goToRegister() {
         this.router.navigate(['/register']);
     }
-    onSubmit() {
-        const success = this.accountStore.login(this.loginData.email, this.loginData.password);
+    async onSubmit() {
+        if (!this.loginData.email || !this.loginData.password) {
+            alert('No ha llenado todos los campos ❌');
+            return;
+        }
+
+        const success = await this.accountStore.login(this.loginData.email, this.loginData.password);
+
         if (success) {
             alert('Inicio de sesión exitoso ✅');
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/dashboard']); // o tu dashboard
         } else {
-            alert('Correo o contraseña incorrectos ❌');
+            alert('Correo o contraseña incorrectos o usuario no ha pagado ❌');
         }
     }
+
+
 }
