@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgFor, NgIf, DecimalPipe } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -22,7 +22,7 @@ type Recipe = {
     selector: 'app-recipes-view',
     templateUrl: './recipes.view.html',
     styleUrl: './recipes.view.css',
-    imports: [NgFor, NgIf, FormsModule, TranslateModule, DecimalPipe],
+    imports: [NgFor, NgIf, FormsModule, TranslateModule],
 })
 
 export class RecipesView implements OnInit {
