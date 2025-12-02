@@ -271,11 +271,23 @@
     "title": "Recetas",
     "searchPlaceholder": "Buscar receta...",
     "level": "Nivel",
+    "type": "Tipo de comida",
     "foodType": "Tipo de comida",
     "seeRecipe": "Ver receta",
     "imageAlt": "Imagen de la receta",
     "ingredients": "Ingredientes",
-    "steps": "Pasos"
+    "steps": "Pasos",
+    "empty": "No se encontraron recetas. Prueba cambiando los filtros o la búsqueda.",
+    "filters": {
+      "allLevels": "Todos los niveles",
+      "easy": "Fácil",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "allTypes": "Todos los tipos",
+      "breakfast": "Desayuno",
+      "meals": "Comidas",
+      "snacks": "Snacks"
+    }
   },
   "monitoring": {
     "temperature": "Temperatura",
