@@ -11,6 +11,7 @@ declare global {
         SpeechRecognition: any;
     }
 }
+
 // para el reconocimiento de voz se tiene que decir primero la cantidad, el producto y luego la categoría
 interface SpeechRecognition extends EventTarget {
     lang: string;
@@ -37,6 +38,8 @@ type PartialProduct = {
     styleUrls: ['./inventory-form.css'],
 })
 export class InventoryAddComponent {
+    // IMPORTANTE: este shape es el que se va a mandar al backend
+    // Asegúrate que tu API acepte estos mismos campos (name, description, category, quantity, image)
     product = {
         name: '',
         description: '',
@@ -79,13 +82,14 @@ export class InventoryAddComponent {
             this.voiceHint = 'No pude escuchar bien, intenta de nuevo.';
             this.recording = false;
         };
-        this.recognition!.onend = () => this.recording = false;
+        this.recognition!.onend = () => (this.recording = false);
     }
 
     startVoice() {
         this.ensureRecognition();
         if (!this.recognition) return;
-        this.voiceHint = '{{ Escucha… di algo como: "3 bananas" o "2 yogurts" }}';
+        this.voiceHint =
+            '{{ Escucha… di algo como: "3 bananas" o "2 yogurts" }}';
         this.recording = true;
         this.recognition.start();
     }
@@ -100,8 +104,18 @@ export class InventoryAddComponent {
         const t = text.toLowerCase().trim();
 
         const numbers: Record<string, number> = {
-            'uno': 1, 'una': 1, 'un': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5,
-            'seis': 6, 'siete': 7, 'ocho': 8, 'nueve': 9, 'diez': 10
+            uno: 1,
+            una: 1,
+            un: 1,
+            dos: 2,
+            tres: 3,
+            cuatro: 4,
+            cinco: 5,
+            seis: 6,
+            siete: 7,
+            ocho: 8,
+            nueve: 9,
+            diez: 10,
         };
 
         let qty = 0;
@@ -113,21 +127,43 @@ export class InventoryAddComponent {
         }
 
         const catMap: Record<string, string> = {
-            'fruta': 'Fruit', 'frutas': 'Fruit', 'fruit': 'Fruit',
-            'vegetal': 'Vegetable', 'verdura': 'Vegetable', 'vegetable': 'Vegetable',
-            'lácteos': 'Dairy', 'lacteos': 'Dairy', 'yogurt': 'Dairy', 'queso': 'Dairy',
-            'carne': 'Meat', 'pollo': 'Meat', 'res': 'Meat', 'pavo': 'Meat',
-            'grano': 'Grain', 'arroz': 'Grain', 'pan': 'Grain', 'cereal': 'Grain',
-            'snack': 'Snack'
+            fruta: 'Fruit',
+            frutas: 'Fruit',
+            fruit: 'Fruit',
+            vegetal: 'Vegetable',
+            verdura: 'Vegetable',
+            vegetable: 'Vegetable',
+            'lácteos': 'Dairy',
+            lacteos: 'Dairy',
+            yogurt: 'Dairy',
+            queso: 'Dairy',
+            carne: 'Meat',
+            pollo: 'Meat',
+            res: 'Meat',
+            pavo: 'Meat',
+            grano: 'Grain',
+            arroz: 'Grain',
+            pan: 'Grain',
+            cereal: 'Grain',
+            snack: 'Snack',
         };
         let category: string | undefined;
         for (const k of Object.keys(catMap)) {
-            if (t.includes(k)) { category = catMap[k]; break; }
+            if (t.includes(k)) {
+                category = catMap[k];
+                break;
+            }
         }
 
         let name = t
-            .replace(/\b(\d+|uno|una|un|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b/g, '')
-            .replace(/\b(fruta|frutas|fruit|vegetal|verdura|vegetable|lácteos|lacteos|carne|grano|snack|category)\b/g, '')
+            .replace(
+                /\b(\d+|uno|una|un|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez)\b/g,
+                ''
+            )
+            .replace(
+                /\b(fruta|frutas|fruit|vegetal|verdura|vegetable|lácteos|lacteos|carne|grano|snack|category)\b/g,
+                ''
+            )
             .trim();
 
         if (!name) {
@@ -145,7 +181,10 @@ export class InventoryAddComponent {
     }
 
     private toTitle(s: string) {
-        return s.replace(/\w\S*/g, w => w[0].toUpperCase() + w.slice(1));
+        return s.replace(
+            /\w\S*/g,
+            (w) => w[0].toUpperCase() + w.slice(1)
+        );
     }
 
     onSubmit() {
@@ -153,17 +192,24 @@ export class InventoryAddComponent {
             alert('Please fill in the required fields.');
             return;
         }
-        this.http.post('http://localhost:3000/products', this.product).subscribe({
-            next: () => {
-                alert('Product added successfully!');
-                this.router.navigate(['/inventory']);
-            },
-            error: (err) => {
-                console.error('Error saving product:', err);
-                alert('Could not save product.');
-            },
-        });
+
+        // 🔴 ANTES: json-server en http://localhost:3000/products
+        // 🟢 AHORA: tu backend Spring Boot (ajusta la URL si tu endpoint es distinto)
+        this.http
+            .post('http://localhost:8080/api/products', this.product)
+            .subscribe({
+                next: () => {
+                    alert('Product added successfully!');
+                    this.router.navigate(['/inventory']);
+                },
+                error: (err) => {
+                    console.error('Error saving product:', err);
+                    alert('Could not save product in the server.');
+                },
+            });
     }
 
-    cancel() { this.router.navigate(['/inventory']); }
+    cancel() {
+        this.router.navigate(['/inventory']);
+    }
 }

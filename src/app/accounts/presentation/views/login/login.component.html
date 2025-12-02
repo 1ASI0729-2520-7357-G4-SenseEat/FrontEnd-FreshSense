@@ -14,24 +14,47 @@
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
                 <div class="input-group">
                     <label for="email">{{ 'auth.login.email' | translate }}</label>
-                    <input id="email" type="email" name="email"
-                           [placeholder]="'auth.login.placeholderEmail' | translate"
-                           [(ngModel)]="loginData.email" required />
+                    <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            [placeholder]="'auth.login.placeholderEmail' | translate"
+                            [(ngModel)]="loginData.email"
+                            required
+                    />
                 </div>
 
                 <div class="input-group">
                     <label for="password">{{ 'auth.login.password' | translate }}</label>
-                    <input id="password" type="password" name="password"
-                           [placeholder]="'auth.login.placeholderPassword' | translate"
-                           [(ngModel)]="loginData.password" required />
+                    <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            [placeholder]="'auth.login.placeholderPassword' | translate"
+                            [(ngModel)]="loginData.password"
+                            required
+                    />
                 </div>
+
+                <!-- Mensaje de error opcional -->
+                <p class="error" *ngIf="loginError">
+                    {{ loginError }}
+                </p>
 
                 <p class="link">
                     {{ 'auth.login.noAccount' | translate }}
-                    <a (click)="goToRegister()">{{ 'auth.login.goRegister' | translate }}</a>
+                    <a (click)="goToRegister()">
+                        {{ 'auth.login.goRegister' | translate }}
+                    </a>
                 </p>
 
-                <button type="submit" class="btn-login">{{ 'auth.login.cta' | translate }}</button>
+                <button
+                        type="submit"
+                        class="btn-login"
+                        [disabled]="loginForm.invalid || isSubmitting"
+                >
+                    {{ 'auth.login.cta' | translate }}
+                </button>
             </form>
         </div>
     </div>

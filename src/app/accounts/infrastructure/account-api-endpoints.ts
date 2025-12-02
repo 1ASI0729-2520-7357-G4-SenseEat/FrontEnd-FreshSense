@@ -1,4 +1,6 @@
+const API_BASE = 'http://localhost:8080/api/accounts';
+
 export const AccountApiEndpoints = {
-    register: '/api/account/register',
-    login: '/api/account/login'
+    register: `${API_BASE}/register`,
+    login: `${API_BASE}/login`,
 };

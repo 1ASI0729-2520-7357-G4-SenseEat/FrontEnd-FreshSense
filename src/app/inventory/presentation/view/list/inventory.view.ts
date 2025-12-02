@@ -15,6 +15,16 @@ type Product = {
     quantity?: number;
 };
 
+// cómo responde tu backend Spring Boot
+type BackendProductResponse = {
+    id: number;
+    name: string;
+    description: string;
+    category: string;
+    quantity: number;
+    imageUrl: string;
+};
+
 @Component({
     selector: 'fs-inventory',
     standalone: true,
@@ -23,32 +33,6 @@ type Product = {
     styleUrls: ['./inventory.css']
 })
 export class FoodInventoryView implements OnInit {
-    logAction(p: any, action: 'consume' | 'discard') {
-        const entry = {
-            productId: p.id,
-            productName: p.name,
-            category: p.category || 'N/A',
-            action,
-            quantity: 1,
-            date: new Date().toISOString()
-        };
-
-        this.http.post('http://localhost:3000/history', entry).subscribe({
-            next: () => {
-                alert(action === 'consume' ? 'Consumo registrado' : 'Descarte registrado');
-            },
-            error: () => {
-                alert('No se pudo registrar el historial.');
-            }
-        });
-
-        const newQty = Math.max(0, (p.quantity || 0) - 1);
-        this.http.patch(`http://localhost:3000/products/${p.id}`, { quantity: newQty }).subscribe();
-
-        p.quantity = newQty;
-        this.selectedProduct = null;
-    }
-
     products: Product[] = [];
     filteredProducts: Product[] = [];
     searchTerm = '';
@@ -62,20 +46,28 @@ export class FoodInventoryView implements OnInit {
     constructor(private http: HttpClient, private router: Router) {}
 
     ngOnInit() {
-        this.http.get<any>('/db.json').subscribe((data) => {
-            const raw = (data?.products ?? []) as any[];
-            this.products = raw.map(p => ({
-                id: p.id,
-                name: p.name,
-                image: p.image,
-                state: p.state,
-                category: p.category,
-                description: p.description,
-                quantity: typeof p.quantity === 'number' ? p.quantity : 0
-            })) as Product[];
+        // Cargar productos desde el backend (MySQL)
+        this.http.get<BackendProductResponse[]>('http://localhost:8080/api/products')
+            .subscribe({
+                next: (data) => {
+                    this.products = (data ?? []).map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        image: p.imageUrl,
+                        state: 'In good condition',   // estado por defecto
+                        category: p.category,
+                        description: p.description,
+                        quantity: typeof p.quantity === 'number' ? p.quantity : 0
+                    })) as Product[];
 
-            this.filteredProducts = [...this.products];
-        });
+                    this.filteredProducts = [...this.products];
+                },
+                error: (err) => {
+                    console.error('Error loading products from backend', err);
+                    this.products = [];
+                    this.filteredProducts = [];
+                }
+            });
     }
 
     filterProducts() {
@@ -92,10 +84,19 @@ export class FoodInventoryView implements OnInit {
         return item?.id ?? index;
     }
 
-    onAddProduct() { this.router.navigate(['/inventory/add']); }
+    onAddProduct() {
+        this.router.navigate(['/inventory/add']);
+    }
 
-    filterState(state: string) { this.selectedState = state; this.filterProducts(); }
-    filterCategory(category: string) { this.selectedCategory = category; this.filterProducts(); }
+    filterState(state: string) {
+        this.selectedState = state;
+        this.filterProducts();
+    }
+
+    filterCategory(category: string) {
+        this.selectedCategory = category;
+        this.filterProducts();
+    }
 
     imageFor(p: Product) {
         return p.image ||
@@ -108,11 +109,28 @@ export class FoodInventoryView implements OnInit {
     }
 
     selectedProduct: Product | null = null;
+
     openProduct(p: Product) {
         if (this.selectedProduct && this.selectedProduct.id === p.id) {
             this.selectedProduct = null;
         } else {
             this.selectedProduct = p;
         }
+    }
+
+    logAction(p: Product, action: string) {
+        console.log('Action on product', { productId: p.id, action });
+
+        if (action === 'discard') {
+            p.state = 'Bad condition';
+        }
+        if (action === 'consume') {
+            const currentQty = p.quantity ?? 0;
+            p.quantity = Math.max(currentQty - 1, 0);
+            if (p.quantity === 0) {
+                p.state = 'Regular condition';
+            }
+        }
+        this.filterProducts();
     }
 }
