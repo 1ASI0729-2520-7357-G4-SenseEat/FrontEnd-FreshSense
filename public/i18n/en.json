@@ -280,11 +280,23 @@
     "title": "Recipes",
     "searchPlaceholder": "Search recipe...",
     "level": "Level",
-    "foodType": "Food Type",
+    "type": "Food type",
+    "foodType": "Food type",
     "seeRecipe": "See recipe",
     "imageAlt": "Recipe image",
     "ingredients": "Ingredients",
-    "steps": "Steps"
+    "steps": "Steps",
+    "empty": "No recipes found. Try changing filters or your search.",
+    "filters": {
+      "allLevels": "All levels",
+      "easy": "Easy",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "allTypes": "All types",
+      "breakfast": "Breakfast",
+      "meals": "Meals",
+      "snacks": "Snacks"
+    }
   },
   "monitoring": {
     "temperature": "Temperature",
