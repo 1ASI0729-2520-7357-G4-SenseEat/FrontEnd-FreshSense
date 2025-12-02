@@ -1,9 +1,6 @@
 export interface AuthResponse {
-    success: boolean;
-    message: string;
-    token?: string;
-    user?: {
-        name: string;
-        email: string;
-    };
+    id: number;
+    email: string;
+    fullName: string;
+    role: 'ADMIN' | 'USER';
 }

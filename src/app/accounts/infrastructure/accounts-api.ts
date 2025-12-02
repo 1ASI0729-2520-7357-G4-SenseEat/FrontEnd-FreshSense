@@ -9,8 +9,9 @@ import { AuthResponse } from './account-response';
 export class AccountApis {
     constructor(private http: HttpClient) {}
 
-    register(user: User): Observable<AuthResponse> {
-        return this.http.post<AuthResponse>(AccountApiEndpoints.register, user);
+    // Payload que espera el backend (UserRegistrationRequest)
+    register(payload: { email: string; password: string; fullName: string }): Observable<AuthResponse> {
+        return this.http.post<AuthResponse>(AccountApiEndpoints.register, payload);
     }
 
     login(email: string, password: string): Observable<AuthResponse> {
