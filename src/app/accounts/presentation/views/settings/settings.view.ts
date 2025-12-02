@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal,inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccountStore } from '../../../application/accounts.store';  // 👈 ESTA ES LA RUTA
 
 
 type TabKey = 'profile' | 'preferences' | 'theme' | 'notifications' | 'security' | 'integrations';
@@ -26,6 +27,8 @@ type NotifyPrefs = Record<NotifyKey, { enabled:boolean; channels: Channel[] }>;
     styleUrls: ['./settings.view.css'],
 })
 export class SettingsView {
+    private readonly accountStore = inject(AccountStore);
+
     // Tabs
     tabs: { key: TabKey; label: string; icon: string }[] = [
         { key: 'profile',       label: 'Profile',       icon: '👤' },
@@ -41,12 +44,25 @@ export class SettingsView {
 
     // Profile
     profile = signal<Profile>({
-        name: 'Luis Martínez',
-        email: 'luis@example.com',
+        name: '',
+        email: '',
         phone: '+51 999 999 999',
         org: 'FreshSense Labs',
         avatarUrl: '',
     });
+
+    constructor() {
+        // 👉 aquí leemos al usuario actual del AccountStore / localStorage
+        const current = this.accountStore.getCurrentUser();
+        if (current) {
+            this.profile.set({
+                ...this.profile(),
+                name: (current as any).fullName ?? (current as any).name ?? '',
+                email: (current as any).email ?? '',
+            });
+        }
+    }
+
     setProfile<K extends keyof Profile>(k: K, v: Profile[K]) {
         this.profile.set({ ...this.profile(), [k]: v });
         this.markDirty();
