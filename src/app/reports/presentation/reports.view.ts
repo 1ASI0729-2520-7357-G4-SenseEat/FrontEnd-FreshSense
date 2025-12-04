@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-const API_BASE = 'https://1asi0729-2520-7357-g4-senseeat-backend-freshsens-production.up.railway.app/api';
-
 export interface HistoryEntry {
     id?: number;
     productId: number;
@@ -89,8 +87,8 @@ export class ReportsView {
     hCategory: string = '';
 
     loadHistory(): void {
-        this.http.get<HistoryEntry[]>(`${API_BASE}/history`)
-        .subscribe({
+        this.http.get<HistoryEntry[]>('http://localhost:3000/history')
+            .subscribe({
                 next: (data) => {
                     this.history = data ?? [];
                     this.applyHistoryFilters();

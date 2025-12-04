@@ -4,8 +4,6 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-const API_BASE = 'https://1asi0729-2520-7357-g4-senseeat-backend-freshsens-production.up.railway.app/api';
-
 type Recipe = {
     id: number;
     title: string;
@@ -40,6 +38,8 @@ export class RecipesView implements OnInit {
     modalOpen = false;
     active: Recipe | null = null;
 
+    private readonly apiUrl = 'http://localhost:8080/api/recipes';
+
     constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
@@ -47,7 +47,7 @@ export class RecipesView implements OnInit {
     }
 
     private loadRecipes(): void {
-        this.http.get<any[]>(`${API_BASE}/recipes`).subscribe({
+        this.http.get<Recipe[]>(this.apiUrl).subscribe({
             next: (data) => {
                 this.recipes = data ?? [];
                 this.filteredRecipes = [...this.recipes];
