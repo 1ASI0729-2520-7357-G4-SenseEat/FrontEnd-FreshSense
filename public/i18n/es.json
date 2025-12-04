@@ -130,7 +130,25 @@
     "integrations": {
       "title": "Integraciones",
       "connect": "Conectar",
-      "disconnect": "Desconectar"
+      "disconnect": "Desconectar",
+      "smartFridges": {
+        "title": "Integraciones: Refrigeradores inteligentes",
+        "desc": "Conecta tu refrigerador para importar productos y vencimientos.",
+        "sync": "Sincronizar ahora",
+        "lastSync": "Última sincronización",
+        "items": "ítems"
+      }
+    },
+    "notify": {
+      "title": "Notificaciones personalizadas",
+      "desc": "Elige qué alertas recibir y por qué canal.",
+      "test": "Probar notificación",
+      "keys": {
+        "inventory.low": "Inventario bajo",
+        "inventory.expiring": "Productos por vencer",
+        "recipes.new": "Nuevas recetas",
+        "achievements.unlocked": "Logros desbloqueados"
+      }
     }
   },
   "achievements": {
@@ -222,31 +240,58 @@
     "searchAria": "Buscar productos"
   },
   "reports": {
-    "title": "Reportes",
-    "from": "Desde",
-    "to": "Hasta",
-    "apply": "Aplicar",
-    "weeklyWaste": "Desperdicio semanal",
-    "trends": "Tendencias",
-    "vsLastWeek": "vs semana pasada",
-    "mtd": "mes a la fecha",
+    "title": "Reports",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply",
+    "weeklyWaste": "Weekly Food Waste",
+    "trends": "Trends",
+    "vsLastWeek": "vs last week",
+    "mtd": "month to date",
     "kpi": {
-      "gain": "Ganancia",
-      "loss": "Pérdida",
-      "improvement": "Mejora porcentual"
+      "gain": "Gain",
+      "loss": "Loss",
+      "improvement": "Percentage Improvement"
+    },
+    "history": {
+      "title": "Consumption History",
+      "date": "Date",
+      "action": "Action",
+      "product": "Product",
+      "category": "Category",
+      "qty": "Quantity",
+      "empty": "No records available.",
+      "consume": "Consume",
+      "discard": "Discard",
+      "add": "Added",
+      "exportCsv": "Export CSV"
     }
   },
   "recipes": {
     "title": "Recetas",
     "searchPlaceholder": "Buscar receta...",
     "level": "Nivel",
+    "type": "Tipo de comida",
     "foodType": "Tipo de comida",
     "seeRecipe": "Ver receta",
     "imageAlt": "Imagen de la receta",
     "ingredients": "Ingredientes",
-    "steps": "Pasos"
+    "steps": "Pasos",
+    "empty": "No se encontraron recetas. Prueba cambiando los filtros o la búsqueda.",
+    "filters": {
+      "allLevels": "Todos los niveles",
+      "easy": "Fácil",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado",
+      "allTypes": "Todos los tipos",
+      "breakfast": "Desayuno",
+      "meals": "Comidas",
+      "snacks": "Snacks"
+    }
   },
   "monitoring": {
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
     "title": "Monitoreo de Alimentos",
     "status": { "healthy": "Estado de sensores: Saludables" },
     "lastSync": "Última sincronización hace {{minutes}} min",
@@ -267,6 +312,7 @@
     "save": "Guardar",
     "cancel": "Cancelar",
     "close": "Cerrar",
-    "search": "Buscar"
+    "search": "Buscar",
+    "all": "Todo"
   }
 }

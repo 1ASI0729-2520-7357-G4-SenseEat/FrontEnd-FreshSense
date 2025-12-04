@@ -654,7 +654,7 @@
       "name": "Banana",
       "description": "Fresh ripe bananas",
       "category": "Fruit",
-      "quantity": 25,
+      "quantity": 24,
       "image": "https://example.com/banana.jpg"
     },
     {
@@ -664,6 +664,114 @@
       "category": "Fruit",
       "quantity": 10,
       "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fes%2Ffotos%2Fnaranja&psig=AOvVaw3xpTNVyl9BzL6vqnbAXp-1&ust=1760157672602000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLicirnomJADFQAAAAAdAAAAABAE"
+    },
+    {
+      "name": "Manzana",
+      "description": "oña",
+      "category": "Fruit",
+      "quantity": 3,
+      "image": "",
+      "id": "7Osk_Dg"
     }
+  ],
+  "history": [
+    {
+      "id": "1",
+      "productId": 101,
+      "productName": "Banana",
+      "category": "Fruit",
+      "action": "consume",
+      "quantity": 1,
+      "date": "2025-11-08T10:15:00Z"
+    },
+    {
+      "id": "a99d",
+      "productId": "1",
+      "productName": "Banana",
+      "category": "Fruit",
+      "action": "consume",
+      "quantity": 1,
+      "date": "2025-11-09T00:30:29.757Z"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "c1",
+      "title": "Semana Cero Desperdicio",
+      "desc": "Reduce tu desperdicio por debajo del 5% durante 7 días.",
+      "rewardPts": 200,
+      "startAt": "2025-11-01T00:00:00Z",
+      "endAt": "2025-11-30T23:59:59Z",
+      "goalType": "percent",
+      "goalTarget": 5,
+      "status": "active",
+      "banner": "/banneralimentos.jpg"
+    },
+    {
+      "id": "c2",
+      "title": "Héroe del Refrigerador",
+      "desc": "Mantén temperatura promedio < 5°C por 10 días seguidos.",
+      "rewardPts": 180,
+      "startAt": "2025-11-01T00:00:00Z",
+      "endAt": "2025-12-10T23:59:59Z",
+      "goalType": "streak",
+      "goalTarget": 10,
+      "status": "active"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "e1",
+      "challengeId": "c1",
+      "userId": "u-001",
+      "progress": 34,
+      "status": "enrolled",
+      "joinedAt": "2025-11-05T12:00:00Z"
+    }
+  ],
+  "leaderboards": [
+    {
+      "challengeId": "c1",
+      "userId": "u-002",
+      "displayName": "María G.",
+      "points": 320,
+      "rank": 1
+    },
+    {
+      "challengeId": "c1",
+      "userId": "u-001",
+      "displayName": "Tú",
+      "points": 280,
+      "rank": 2
+    },
+    {
+      "challengeId": "c1",
+      "userId": "u-003",
+      "displayName": "Luis P.",
+      "points": 210,
+      "rank": 3
+    },
+    {
+      "challengeId": "c2",
+      "userId": "u-004",
+      "displayName": "Ana M.",
+      "points": 150,
+      "rank": 1
+    },
+    {
+      "challengeId": "c2",
+      "userId": "u-001",
+      "displayName": "Tú",
+      "points": 120,
+      "rank": 2
+    }
+  ],
+  "integrations": [
+    { "id": 1, "provider": "Samsung SmartThings", "status": "disconnected" },
+    { "id": 2, "provider": "LG ThinQ", "status": "disconnected" }
+  ],
+  "fridgeSamples": [
+    { "id": "f1", "name": "Leche", "qty": 1, "unit": "lt", "expiresAt": "2025-11-15" },
+    { "id": "f2", "name": "Huevos", "qty": 12, "unit": "un", "expiresAt": "2025-11-20" }
   ]
 }

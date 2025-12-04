@@ -70,3 +70,17 @@
 .btn.primary { background:#1f9c59; }
 .btn.ghost { background:#fff; border:1px solid #d7e6df; color:#2a3b37; }
 .btn.outline { background:#fff; border:1px solid #1f9c59; color:#1f9c59; }
+
+/* last settigs */
+.subcard { margin-top:1rem; padding-top:.75rem; border-top:1px dashed #e5e7eb; }
+.pref-table { display:flex; flex-direction:column; gap:.5rem; margin:.5rem 0; }
+.pref-row { display:flex; align-items:center; justify-content:space-between; padding:.5rem .75rem; border:1px solid #eee; border-radius:10px; }
+.pref-name { display:flex; align-items:center; gap:.5rem; }
+.pref-channels label { margin-right:12px; font-size:.9rem; }
+
+.sf-grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin:.5rem 0; }
+.sf-item { border:1px dashed #d1d5db; border-radius:12px; padding:.75rem; display:flex; flex-direction:column; gap:.5rem; }
+.sf-head { display:flex; justify-content:space-between; align-items:center; }
+.badge { font-size:.75rem; padding:.15rem .5rem; border-radius:999px; text-transform:capitalize; background:#f3f4f6; }
+.badge.ok { background:#e6ffed; }
+.btn.small { padding:.35rem .6rem; font-size:.9rem; }

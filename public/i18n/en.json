@@ -31,6 +31,7 @@
     "recipes": "Recipes",
     "reports": "Reports",
     "achievements": "Achievements",
+    "challenges": "Challenges",
     "settings": "Settings"
   },
   "auth": {
@@ -130,14 +131,40 @@
     "integrations": {
       "title": "Integrations",
       "connect": "Connect",
-      "disconnect": "Disconnect"
+      "disconnect": "Disconnect",
+      "smartFridges": {
+        "title": "Integrations: Smart fridges",
+        "desc": "Connect your fridge to import items and expirations.",
+        "sync": "Sync now",
+        "lastSync": "Last sync",
+        "items": "items"
+      }
+    },
+    "notify": {
+      "title": "Personalized notifications",
+      "desc": "Choose which alerts to receive and through which channel.",
+      "test": "Test notification",
+      "keys": {
+        "inventory.low": "Low inventory",
+        "inventory.expiring": "Expiring items",
+        "recipes.new": "New recipes",
+        "achievements.unlocked": "Achievements unlocked"
+      }
     }
   },
   "achievements": {
     "title": "Achievements",
     "congratsTitle": "Congratulations! New Achievement!",
     "completed": "Completed",
-    "locked": "Locked"
+    "locked": "Locked",
+    "share": "Share",
+    "sharing": "Sharing..."
+  },
+  "tabs": {
+    "In-Progress": "In-Progress",
+    "Pending": "Pending",
+    "Completed": "Completed",
+    "All": "All"
   },
   "alerts": {
     "title": "Alerts",
@@ -234,19 +261,46 @@
       "gain": "Gain",
       "loss": "Loss",
       "improvement": "Percentage Improvement"
+    },
+    "history": {
+      "title": "Consumption History",
+      "date": "Date",
+      "action": "Action",
+      "product": "Product",
+      "category": "Category",
+      "qty": "Quantity",
+      "empty": "No records available.",
+      "consume": "Consume",
+      "discard": "Discard",
+      "add": "Added",
+      "exportCsv": "Export CSV"
     }
   },
   "recipes": {
     "title": "Recipes",
     "searchPlaceholder": "Search recipe...",
     "level": "Level",
-    "foodType": "Food Type",
+    "type": "Food type",
+    "foodType": "Food type",
     "seeRecipe": "See recipe",
     "imageAlt": "Recipe image",
     "ingredients": "Ingredients",
-    "steps": "Steps"
+    "steps": "Steps",
+    "empty": "No recipes found. Try changing filters or your search.",
+    "filters": {
+      "allLevels": "All levels",
+      "easy": "Easy",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "allTypes": "All types",
+      "breakfast": "Breakfast",
+      "meals": "Meals",
+      "snacks": "Snacks"
+    }
   },
   "monitoring": {
+    "temperature": "Temperature",
+    "humidity": "Humidity",
     "title": "Food Monitoring",
     "status": { "healthy": "Sensors status: Healthy" },
     "lastSync": "Last sync {{minutes}} min ago",
@@ -267,6 +321,18 @@
     "save": "Save",
     "cancel": "Cancel",
     "close": "Close",
-    "search": "Search"
+    "search": "Search",
+    "all": "All"
+  },
+  "challenges": {
+    "title": "Challenges",
+    "tabs": { "active": "Active", "enrolled": "My challenges", "leaderboard": "Leaderboard" },
+    "enroll": "Enroll",
+    "leave": "Leave",
+    "viewRanking": "View ranking",
+    "leaderboard": "Leaderboard",
+    "player": "Player",
+    "points": "Points",
+    "period": "From {{start}} to {{end}}"
   }
 }

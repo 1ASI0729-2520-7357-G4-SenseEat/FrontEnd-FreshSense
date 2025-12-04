@@ -28,7 +28,7 @@
                 }">
             {{
                             t.key==='in-progress' ? count.inProgress() :
-                                t.key==='pending'     ? count.pending() :
+                                t.key==='pending'     ? count.pending()   :
                                     t.key==='completed'   ? count.completed() :
                                         count.all()
                         }}
@@ -38,7 +38,7 @@
         </header>
 
         <ul class="items">
-            <li class="item" *ngFor="let a of visible()">
+            <li class="item" *ngFor="let a of visible(); let i = index" #card>
                 <div class="icon" [class.done]="a.status==='completed'">{{ a.icon }}</div>
 
                 <div class="body">
@@ -58,6 +58,22 @@
                     <div class="locked" *ngIf="a.status==='pending'">
                         <span>{{ 'achievements.locked' | translate }}</span>
                     </div>
+
+                    <!-- Compartir logro -->
+                    <div class="actions">
+                        <button class="btn-share"
+                                [disabled]="sharingId === a.id"
+                                (click)="share(a, card)">
+                            {{ sharingId === a.id ? ('achievements.sharing' | translate) : ('achievements.share' | translate) }}
+                        </button>
+                    </div>
+
+                    <!-- FIX: null-safety -->
+                    <p class="muted"
+                       *ngIf="lastShareMsg?.id === a.id"
+                       [style.color]="(lastShareMsg?.ok ? '#19924f' : '#b42318')">
+                        {{ lastShareMsg?.text }}
+                    </p>
                 </div>
             </li>
         </ul>

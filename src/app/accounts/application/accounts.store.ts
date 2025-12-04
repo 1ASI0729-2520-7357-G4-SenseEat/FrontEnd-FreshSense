@@ -1,62 +1,72 @@
 import { Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { User } from '../domain/model/user.entity';
+import { AccountApis } from '../infrastructure/accounts-api';
+import { AuthResponse } from '../infrastructure/account-response';
+
+const CURRENT_USER_KEY = 'currentUser';
 
 @Injectable({ providedIn: 'root' })
 export class AccountStore {
-    private apiUrl = 'http://localhost:3000/users'; // json-server
 
+    constructor(private readonly api: AccountApis) {}
+
+    // Registro contra Spring Boot / MySQL
     async register(user: User): Promise<boolean> {
-        // Validar si el correo ya existe
-        const existsRes = await fetch(`${this.apiUrl}?email=${user.email}`);
-        const existingUsers = await existsRes.json();
+        try {
+            // El backend espera: email, password, fullName
+            const payload = {
+                email: user.email,
+                password: user.password,
+                fullName: user.name,   // mapeamos name -> fullName
+            };
 
-        if (existingUsers.length > 0) return false; // ya existe
-
-        // Registrar usuario con paid: false
-        const newUser = { ...user, paid: false };
-        const response = await fetch(this.apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newUser)
-        });
-
-        return response.ok;
+            const resp = await lastValueFrom(this.api.register(payload));
+            this.saveCurrentUser(resp);
+            return true;
+        } catch (err) {
+            console.error('Error al registrar usuario', err);
+            return false;
+        }
     }
 
+    // Login contra backend
     async login(email: string, password: string): Promise<boolean> {
-        const res = await fetch(`${this.apiUrl}?email=${email}&password=${password}`);
-        const users = await res.json();
-
-        // Solo usuarios que pagaron
-        if (users.length === 1 && users[0].paid) {
-            localStorage.setItem('user', JSON.stringify(users[0]));
+        try {
+            const resp = await lastValueFrom(this.api.login(email, password));
+            this.saveCurrentUser(resp);
             return true;
+        } catch (err) {
+            console.error('Error al iniciar sesión', err);
+            return false;
         }
-        return false;
     }
 
     async markAsPaid(email: string): Promise<void> {
-        const res = await fetch(`${this.apiUrl}?email=${email}`);
-        const users = await res.json();
+        console.warn('[AccountStore] markAsPaid aún no implementado. Email:', email);
+        return;
+    }
 
-        if (users.length === 1) {
-            const user = users[0];
-            user.paid = true;
+    private saveCurrentUser(user: AuthResponse) {
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+    }
 
-            await fetch(`${this.apiUrl}/${user.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(user)
-            });
+    getCurrentUser(): AuthResponse | null {
+        const raw = localStorage.getItem(CURRENT_USER_KEY);
+        if (!raw) return null;
+        try {
+            return JSON.parse(raw) as AuthResponse;
+        } catch {
+            return null;
         }
     }
 
-    logout() {
-        localStorage.removeItem('user');
+    logout(): void {
+        localStorage.removeItem(CURRENT_USER_KEY);
     }
 
     isLogged(): boolean {
-        return localStorage.getItem('user') !== null;
+        return this.getCurrentUser() !== null;
     }
 }
 

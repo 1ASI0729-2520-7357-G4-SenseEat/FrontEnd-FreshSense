@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccountStore } from '../../../../accounts/application/accounts.store';
 
 @Component({
     selector: 'fs-home-view',
@@ -8,15 +9,15 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './home.view.html',
     styleUrl: './home.view.css'
 })
-export class HomeView {
-    name: string = '';
+export class HomeView implements OnInit {
 
-    constructor() {
-        const storedUser = localStorage.getItem('user');
+    private readonly accountStore = inject(AccountStore);
 
-        if (storedUser) {
-            const user = JSON.parse(storedUser);
-            this.name = user.name; // 👈 Aquí sale el nombre del usuario registrado
-        }
+    name = '';
+
+    ngOnInit(): void {
+        const currentUser = this.accountStore.getCurrentUser();
+        // Ajusta al nombre que venga en AuthResponse: fullName / name / username
+        this.name = currentUser?.fullName ?? 'Invitado';
     }
 }

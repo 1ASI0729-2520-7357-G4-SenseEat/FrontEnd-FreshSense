@@ -60,3 +60,17 @@ input:focus, select:focus, textarea:focus {
     cursor: pointer;
     transition: background .2s ease, transform .1s ease;
 }
+
+.form-group--with-tools .input-with-tools {
+    display: flex; gap: .5rem; align-items: center;
+}
+.input-with-tools input { flex: 1; }
+.icon-btn {
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 10px;
+    padding: .35rem .5rem;
+    cursor: pointer;
+}
+.icon-btn:disabled { opacity: .5; cursor: not-allowed; }
+.muted { color: #6b7280; }

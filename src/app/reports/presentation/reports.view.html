@@ -64,5 +64,61 @@
                 </g>
             </svg>
         </article>
+
+        <article class="card span-12">
+            <h3 class="h2">{{ 'reports.history.title' | translate }}</h3>
+
+            <div class="filters history-filters">
+                <label class="input">
+                    <span>{{ 'reports.from' | translate }}</span>
+                    <input type="date" [(ngModel)]="hFrom" (change)="applyHistoryFilters()">
+                </label>
+                <label class="input">
+                    <span>{{ 'reports.to' | translate }}</span>
+                    <input type="date" [(ngModel)]="hTo" (change)="applyHistoryFilters()">
+                </label>
+                <label class="input">
+                    <span>{{ 'reports.history.action' | translate }}</span>
+                    <select [(ngModel)]="hAction" (change)="applyHistoryFilters()">
+                        <option value="">{{ 'common.all' | translate }}</option>
+                        <option value="consume">{{ 'reports.history.consume' | translate }}</option>
+                        <option value="discard">{{ 'reports.history.discard' | translate }}</option>
+                        <option value="add">{{ 'reports.history.add' | translate }}</option>
+                    </select>
+                </label>
+                <label class="input">
+                    <span>{{ 'reports.history.category' | translate }}</span>
+                    <input type="text" [(ngModel)]="hCategory" (input)="applyHistoryFilters()" placeholder="Fruit, Meat, Dairy…">
+                </label>
+                <button class="btn" (click)="exportCSV()">{{ 'reports.history.exportCsv' | translate }}</button>
+            </div>
+
+            <div class="table-wrap" *ngIf="filtered.length; else noData">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>{{ 'reports.history.date' | translate }}</th>
+                        <th>{{ 'reports.history.action' | translate }}</th>
+                        <th>{{ 'reports.history.product' | translate }}</th>
+                        <th>{{ 'reports.history.category' | translate }}</th>
+                        <th>{{ 'reports.history.qty' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let e of filtered">
+                        <td>{{ e.date | date:'yyyy-MM-dd HH:mm' }}</td>
+                        <td>{{ e.action }}</td>
+                        <td>{{ e.productName }}</td>
+                        <td>{{ e.category }}</td>
+                        <td>{{ e.quantity }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ng-template #noData>
+                <p class="muted">{{ 'reports.history.empty' | translate }}</p>
+            </ng-template>
+        </article>
     </div>
 </section>
