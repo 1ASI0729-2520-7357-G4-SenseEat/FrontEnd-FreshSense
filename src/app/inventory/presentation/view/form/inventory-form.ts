@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from '../../../../../environments/environment';
+
 
 declare global {
     interface Window {
@@ -53,6 +55,8 @@ export class InventoryAddComponent {
     private recognition?: SpeechRecognition;
     recording = false;
     voiceHint = '';
+
+    private readonly apiUrl = `${environment.apiBaseUrl}/products`;
 
     constructor(
         private http: HttpClient,
@@ -193,20 +197,16 @@ export class InventoryAddComponent {
             return;
         }
 
-        // 🔴 ANTES: json-server en http://localhost:3000/products
-        // 🟢 AHORA: tu backend Spring Boot (ajusta la URL si tu endpoint es distinto)
-        this.http
-            .post('http://localhost:8080/api/products', this.product)
-            .subscribe({
-                next: () => {
-                    alert('Product added successfully!');
-                    this.router.navigate(['/inventory']);
-                },
-                error: (err) => {
-                    console.error('Error saving product:', err);
-                    alert('Could not save product in the server.');
-                },
-            });
+        this.http.post(this.apiUrl, this.product).subscribe({
+            next: () => {
+                alert('Product added successfully!');
+                this.router.navigate(['/inventory']);
+            },
+            error: (err) => {
+                console.error('Error saving product:', err);
+                alert('Could not save product in the server.');
+            },
+        });
     }
 
     cancel() {

@@ -4,6 +4,7 @@ import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from '../../../../../environments/environment';
 
 type Product = {
     id: number;
@@ -43,11 +44,12 @@ export class FoodInventoryView implements OnInit {
     selectedState = 'All';
     selectedCategory = 'All';
 
+    private readonly apiUrl = `${environment.apiBaseUrl}/products`;
+
     constructor(private http: HttpClient, private router: Router) {}
 
     ngOnInit() {
-        // Cargar productos desde el backend (MySQL)
-        this.http.get<BackendProductResponse[]>('http://localhost:8080/api/products')
+        this.http.get<BackendProductResponse[]>(this.apiUrl)
             .subscribe({
                 next: (data) => {
                     this.products = (data ?? []).map(p => ({
