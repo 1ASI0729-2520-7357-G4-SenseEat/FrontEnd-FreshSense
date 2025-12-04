@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from '../../../environments/environment';
 
 type Recipe = {
     id: number;
@@ -38,7 +39,7 @@ export class RecipesView implements OnInit {
     modalOpen = false;
     active: Recipe | null = null;
 
-    private readonly apiUrl = 'http://localhost:8080/api/recipes';
+    private readonly apiUrl = `${environment.apiBaseUrl}/recipes`;
 
     constructor(private http: HttpClient) {}
 
