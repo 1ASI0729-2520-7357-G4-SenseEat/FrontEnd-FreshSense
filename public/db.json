@@ -1,4 +1,39 @@
 {
+  "users": [
+    {
+      "id": "09f3",
+      "name": "",
+      "email": "",
+      "password": ""
+    },
+    {
+      "id": "d47e",
+      "name": "Jorge",
+      "email": "jorge@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "61d4",
+      "name": "luis",
+      "email": "luis@gmail.com",
+      "password": "1234",
+      "paid": false
+    },
+    {
+      "id": "5153",
+      "name": "joeel",
+      "email": "joeel@gmail.com",
+      "password": "1234",
+      "paid": true
+    },
+    {
+      "id": "2da5",
+      "name": "Maria",
+      "email": "maria@gmail.com",
+      "password": "1234",
+      "paid": true
+    }
+  ],
   "recipes": [
     {
       "id": "1",

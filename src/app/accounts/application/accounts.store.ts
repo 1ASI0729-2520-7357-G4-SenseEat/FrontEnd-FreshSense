@@ -40,6 +40,7 @@ export class AccountStore {
             console.error('Error al iniciar sesión', err);
             return false;
         }
+        return false;
     }
 
     private saveCurrentUser(user: AuthResponse) {
@@ -64,3 +65,5 @@ export class AccountStore {
         return this.getCurrentUser() !== null;
     }
 }
+
+

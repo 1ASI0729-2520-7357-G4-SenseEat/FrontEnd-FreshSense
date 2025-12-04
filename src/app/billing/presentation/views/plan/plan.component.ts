@@ -14,6 +14,9 @@ export class PlanComponent {
 
     selectPlan(plan: string) {
         console.log('Plan seleccionado:', plan);
+        // Guardar el plan en localStorage si lo necesitas
+        localStorage.setItem('selectedPlan', plan);
         this.router.navigate(['/payment']);
     }
+
 }
