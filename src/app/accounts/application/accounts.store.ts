@@ -40,7 +40,11 @@ export class AccountStore {
             console.error('Error al iniciar sesión', err);
             return false;
         }
-        return false;
+    }
+
+    async markAsPaid(email: string): Promise<void> {
+        console.warn('[AccountStore] markAsPaid aún no implementado. Email:', email);
+        return;
     }
 
     private saveCurrentUser(user: AuthResponse) {
