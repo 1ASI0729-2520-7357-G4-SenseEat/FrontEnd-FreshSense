@@ -3,6 +3,7 @@ import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 export interface HistoryEntry {
     id?: number;
@@ -30,8 +31,10 @@ export interface HistoryEntry {
 })
 export class ReportsView {
 
+    private readonly historyUrl = `${environment.apiBaseUrl}/history`;
+
     constructor(private http: HttpClient) {
-        this.loadHistory(); // ← cargar historial al iniciar
+        this.loadHistory();
     }
 
     humidity = [70, 72, 68, 66, 71, 73, 69];
@@ -87,7 +90,7 @@ export class ReportsView {
     hCategory: string = '';
 
     loadHistory(): void {
-        this.http.get<HistoryEntry[]>('http://localhost:3000/history')
+        this.http.get<HistoryEntry[]>(this.historyUrl)
             .subscribe({
                 next: (data) => {
                     this.history = data ?? [];
