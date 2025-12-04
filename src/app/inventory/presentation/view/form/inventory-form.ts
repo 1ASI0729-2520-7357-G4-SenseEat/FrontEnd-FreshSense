@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
 
+const API_BASE = 'https://1asi0729-2520-7357-g4-senseeat-backend-freshsens-production.up.railway.app/api';
+
 declare global {
     interface Window {
         webkitSpeechRecognition: any;
@@ -38,8 +40,6 @@ type PartialProduct = {
     styleUrls: ['./inventory-form.css'],
 })
 export class InventoryAddComponent {
-    // IMPORTANTE: este shape es el que se va a mandar al backend
-    // Asegúrate que tu API acepte estos mismos campos (name, description, category, quantity, image)
     product = {
         name: '',
         description: '',
@@ -193,10 +193,7 @@ export class InventoryAddComponent {
             return;
         }
 
-        // 🔴 ANTES: json-server en http://localhost:3000/products
-        // 🟢 AHORA: tu backend Spring Boot (ajusta la URL si tu endpoint es distinto)
-        this.http
-            .post('http://localhost:8080/api/products', this.product)
+        this.http.post(`${API_BASE}/products`, this.product)
             .subscribe({
                 next: () => {
                     alert('Product added successfully!');
