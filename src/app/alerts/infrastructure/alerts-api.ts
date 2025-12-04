@@ -12,10 +12,14 @@ export interface AlertDto {
     timeAgo: string;
 }
 
+const BACKEND_BASE =
+    window.location.hostname === 'localhost'
+        ? 'http://localhost:8080'
+        : 'https://1asi0729-2520-7357-g4-senseeat-backend-freshsens-production.up.railway.app';
+
 @Injectable({ providedIn: 'root' })
 export class AlertsApi {
-
-    private baseUrl = 'http://localhost:8080/api/alerts';
+    private readonly baseUrl = `${BACKEND_BASE}/api/alerts`;
 
     constructor(private http: HttpClient) {}
 
