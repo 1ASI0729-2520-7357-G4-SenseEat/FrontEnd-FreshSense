@@ -52,9 +52,10 @@
                 class="alert-card"
                 *ngFor="let a of visible()"
                 [ngClass]="[
-                a.severity.toLowerCase(),
-                a.state?.toLowerCase()
-            ]"
+                    a.severity.toLowerCase(),
+                    (a.state || '').toLowerCase()
+                ]"
+
         >
 
             <!-- IZQUIERDA -->
@@ -102,7 +103,7 @@
 
                     <div class="drawer__row">
                         <span>{{ 'alerts.columns.status' | translate }}</span>
-                        <b class="cap">{{ a.state.toLowerCase() }}</b>
+                        <b class="cap">{{ (a.state || '').toLowerCase() }}</b>
                     </div>
 
                     <div class="drawer__row">
